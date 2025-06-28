@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة معلومات الخطة التسويقية</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Custom Styles and Animations -->
+    <style>
+        :root {
+            --primary-color: #2563eb; /* blue-600 */
+            --secondary-color: #4f46e5; /* indigo-600 */
+            --background-light: #f1f5f9; /* slate-100 */
+            --background-dark: #1e293b; /* slate-800 */
+            --text-light: #f8fafc; /* slate-50 */
+            --text-dark: #0f172a; /* slate-900 */
+            --card-background: #ffffff;
+        }
+
+        /* Set base font families */
+        html[lang="ar"] body { font-family: 'Cairo', sans-serif; }
+        html[lang="en"] body { font-family: 'Inter', sans-serif; }
+
+        body {
+            background-color: var(--background-light);
+            color: var(--text-dark);
+            scroll-behavior: smooth;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            background: linear-gradient(160deg, var(--background-dark) 0%, #111827 100%);
+            transition: width 0.3s ease;
+        }
+
+        .sidebar-link {
+            transition: background-color 0.2s ease, color 0.2s ease, padding-left 0.2s ease, padding-right 0.2s ease;
+            color: #9ca3af; /* gray-400 */
+        }
+        
+        .sidebar-link:hover {
+            background-color: #374151; /* gray-700 */
+            color: var(--text-light);
+        }
+
+        .sidebar-link.active {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            font-weight: 700;
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #e2e8f0; }
+        ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #64748b; }
+
+        /* Animation for content cards */
+        .content-card {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .content-card.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Custom styling for buyer persona cards */
+        .persona-card {
+            background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+            border-left: 5px solid var(--primary-color);
+        }
+        .persona-card-alt {
+            border-left-color: var(--secondary-color);
+        }
+        
+        /* Accordion for strategy section */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+
+        /* Vertical Timeline styling */
+        .timeline-item {
+            position: relative;
+        }
+        html[dir="ltr"] .timeline-item:before, html[dir="ltr"] .journey-item:before {
+            content: '';
+            position: absolute;
+            left: 1.25rem;
+            top: 1.5rem;
+            bottom: -1.5rem;
+            width: 2px;
+            background-color: #cbd5e1; /* slate-300 */
+            transform: translateX(-50%);
+        }
+        html[dir="rtl"] .timeline-item:before, html[dir="rtl"] .journey-item:before {
+            content: '';
+            position: absolute;
+            right: 1.25rem;
+            top: 1.5rem;
+            bottom: -1.5rem;
+            width: 2px;
+            background-color: #cbd5e1; /* slate-300 */
+            transform: translateX(50%);
+        }
+        .timeline-item:last-child:before, .journey-item:last-child:before {
+            display: none;
+        }
+        .timeline-dot, .journey-dot {
+            position: absolute;
+            top: 0.25rem;
+            background-color: white;
+            border: 3px solid var(--primary-color);
+        }
+        html[dir="ltr"] .timeline-dot, html[dir="ltr"] .journey-dot { left: 1.25rem; transform: translateX(-50%); }
+        html[dir="rtl"] .timeline-dot, html[dir="rtl"] .journey-dot { right: 1.25rem; transform: translateX(50%); }
+
+    </style>
+</head>
+<body class="bg-slate-100">
+
+    <div class="flex min-h-screen">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar w-16 hover:w-64 fixed top-0 ltr:left-0 rtl:right-0 bottom-0 z-30 shadow-2xl transition-all duration-300 ease-in-out group overflow-x-hidden">
+            <div class="h-full flex flex-col justify-between">
+                <div>
+                     <!-- Logo/Header -->
+                    <div class="h-20 flex items-center justify-center border-b border-gray-700">
+                        <svg class="h-8 w-8 text-white flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                        </svg>
+                        <span class="text-white text-xl font-bold ltr:ml-4 rtl:mr-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap" data-translate-key="sidebar_title">الخطة</span>
+                    </div>
+
+                    <!-- Navigation Links -->
+                    <nav class="mt-4">
+                        <a href="#goals" class="sidebar-link flex items-center p-4 rounded-lg mx-2 my-1" data-nav-id="goals">
+                            <svg class="h-6 w-6 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                            <span class="ltr:ml-4 rtl:mr-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap" data-translate-key="nav_goals">الأهداف الذكية</span>
+                        </a>
+                        <a href="#audience" class="sidebar-link flex items-center p-4 rounded-lg mx-2 my-1" data-nav-id="audience">
+                            <svg class="h-6 w-6 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                            <span class="ltr:ml-4 rtl:mr-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap" data-translate-key="nav_audience">الجمهور المستهدف</span>
+                        </a>
+                        <a href="#journey" class="sidebar-link flex items-center p-4 rounded-lg mx-2 my-1" data-nav-id="journey">
+                           <svg class="h-6 w-6 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V7.618a1 1 0 01.553-.894L9 4m0 16v-5h6v5m0 0l5.447-2.724A1 1 0 0021 16.382V7.618a1 1 0 00-.553-.894L15 4m-6 16h6m-6-5h6m0 0l-6-5m6 5v7" /></svg>
+                            <span class="ltr:ml-4 rtl:mr-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap" data-translate-key="nav_journey">رحلة العميل</span>
+                        </a>
+                        <a href="#strategy" class="sidebar-link flex items-center p-4 rounded-lg mx-2 my-1" data-nav-id="strategy">
+                            <svg class="h-6 w-6 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" /></svg>
+                            <span class="ltr:ml-4 rtl:mr-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap" data-translate-key="nav_strategy">الاستراتيجية</span>
+                        </a>
+                        <a href="#content" class="sidebar-link flex items-center p-4 rounded-lg mx-2 my-1" data-nav-id="content">
+                           <svg class="h-6 w-6 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
+                           <span class="ltr:ml-4 rtl:mr-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap" data-translate-key="nav_content">المحتوى</span>
+                        </a>
+                        <a href="#tactics" class="sidebar-link flex items-center p-4 rounded-lg mx-2 my-1" data-nav-id="tactics">
+                            <svg class="h-6 w-6 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
+                            <span class="ltr:ml-4 rtl:mr-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap" data-translate-key="nav_tactics">التكتيكات</span>
+                        </a>
+                         <a href="#timeline" class="sidebar-link flex items-center p-4 rounded-lg mx-2 my-1" data-nav-id="timeline">
+                            <svg class="h-6 w-6 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                            <span class="ltr:ml-4 rtl:mr-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap" data-translate-key="nav_timeline">الجدول الزمني</span>
+                        </a>
+                        <a href="#budget" class="sidebar-link flex items-center p-4 rounded-lg mx-2 my-1" data-nav-id="budget">
+                           <svg class="h-6 w-6 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                           <span class="ltr:ml-4 rtl:mr-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap" data-translate-key="nav_budget">الميزانية</span>
+                        </a>
+                        <a href="#kpis" class="sidebar-link flex items-center p-4 rounded-lg mx-2 my-1" data-nav-id="kpis">
+                            <svg class="h-6 w-6 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                            <span class="ltr:ml-4 rtl:mr-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap" data-translate-key="nav_kpis">مؤشرات الأداء</span>
+                        </a>
+                    </nav>
+                </div>
+
+                <!-- Language Switcher -->
+                <div class="p-4 border-t border-gray-700">
+                     <div class="flex items-center justify-center space-x-2 rtl:space-x-reverse">
+                        <button id="lang-en" class="p-2 rounded-full text-gray-400 hover:bg-gray-700 hover:text-white" title="Switch to English">EN</button>
+                        <button id="lang-ar" class="p-2 rounded-full text-white bg-blue-600" title="التحويل إلى العربية">AR</button>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="w-full transition-all duration-300 ease-in-out" id="main-content">
+             <div class="p-6 md:p-10">
+                <!-- Header -->
+                 <header class="mb-12">
+                     <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-2" data-translate-key="main_title">الخطة التسويقية الرقمية المتكاملة</h1>
+                     <p class="text-lg text-slate-500" data-translate-key="main_subtitle">لوحة معلومات تفاعلية لاستكشاف استراتيجيات النمو لأكاديميتنا.</p>
+                 </header>
+
+                 <!-- Sections Container -->
+                 <div class="space-y-24">
+                    <!-- Section 1: SMART Goals -->
+                    <section id="goals" class="content-card">
+                        <h2 class="text-3xl font-bold mb-6 flex items-center">
+                            <span class="text-white bg-blue-600 rounded-lg p-2 ltr:mr-4 rtl:ml-4">
+                               <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                            </span>
+                            <span data-translate-key="section_title_goals">1. الأهداف الذكية (SMART Goals)</span>
+                        </h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                            <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 border-t-4 border-blue-500">
+                                <h3 class="font-bold text-lg mb-2" data-translate-key="goals_card1_title">زيادة الوعي</h3>
+                                <p class="text-slate-600 text-sm" data-translate-key="goals_card1_text">زيادة الوصول العضوي بنسبة 50% وزيارات الموقع بنسبة 30% خلال 6 أشهر.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 border-t-4 border-indigo-500">
+                                <h3 class="font-bold text-lg mb-2" data-translate-key="goals_card2_title">توليد العملاء</h3>
+                                <p class="text-slate-600 text-sm" data-translate-key="goals_card2_text">زيادة المشتركين بنسبة 25% والاستفسارات بنسبة 20% خلال 6 أشهر.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 border-t-4 border-purple-500">
+                                <h3 class="font-bold text-lg mb-2" data-translate-key="goals_card3_title">زيادة المبيعات</h3>
+                                <p class="text-slate-600 text-sm" data-translate-key="goals_card3_text">زيادة معدل التحويل بنسبة 15% ونمو الإيرادات بنسبة 20% خلال سنة.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 border-t-4 border-pink-500">
+                                <h3 class="font-bold text-lg mb-2" data-translate-key="goals_card4_title">بناء الولاء</h3>
+                                <p class="text-slate-600 text-sm" data-translate-key="goals_card4_text">زيادة الاحتفاظ بالطلاب 10% وتحسين التقييمات إلى 4.5 خلال 6 أشهر.</p>
+                            </div>
+                        </div>
+                    </section>
+                    
+                    <!-- Section 2: Audience -->
+                    <section id="audience" class="content-card">
+                         <h2 class="text-3xl font-bold mb-6 flex items-center">
+                            <span class="text-white bg-indigo-600 rounded-lg p-2 ltr:mr-4 rtl:ml-4">
+                                <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                            </span>
+                            <span data-translate-key="section_title_audience">2. الجمهور المستهدف وشخصيات المشتري</span>
+                        </h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div class="persona-card p-6 rounded-xl shadow-lg">
+                                <h3 class="text-xl font-bold text-blue-800 mb-3" data-translate-key="persona1_title">شخصية ١: طموح المستقبل</h3>
+                                <p class="text-slate-600 mb-4" data-translate-key="persona1_desc">خريج حديث أو شاب مهني يبحث عن اكتساب مهارات عملية لدخول سوق العمل بقوة.</p>
+                                <ul class="space-y-2 text-sm">
+                                    <li class="flex items-start"><span class="text-blue-500 ltr:mr-2 rtl:ml-2 mt-1">&#10003;</span><strong class="flex-shrink-0 ltr:mr-1 rtl:ml-1" data-translate-key="persona_motivations">الدوافع:</strong> <span class="text-slate-500" data-translate-key="persona1_motivations_text">الحصول على وظيفة أفضل، بناء سيرة ذاتية قوية.</span></li>
+                                    <li class="flex items-start"><span class="text-blue-500 ltr:mr-2 rtl:ml-2 mt-1">&#10003;</span><strong class="flex-shrink-0 ltr:mr-1 rtl:ml-1" data-translate-key="persona_challenges">التحديات:</strong> <span class="text-slate-500" data-translate-key="persona1_challenges_text">نقص الخبرة، تكلفة الدورات، إيجاد محتوى موثوق.</span></li>
+                                </ul>
+                            </div>
+                             <div class="persona-card persona-card-alt p-6 rounded-xl shadow-lg">
+                                <h3 class="text-xl font-bold text-indigo-800 mb-3" data-translate-key="persona2_title">شخصية ٢: المتخصص المتمرس</h3>
+                                <p class="text-slate-600 mb-4" data-translate-key="persona2_desc">مهني ذو خبرة يسعى لتحديث مهاراته، الحصول على ترقية، أو التخصص في مجال دقيق.</p>
+                                <ul class="space-y-2 text-sm">
+                                    <li class="flex items-start"><span class="text-indigo-500 ltr:mr-2 rtl:ml-2 mt-1">&#10003;</span><strong class="flex-shrink-0 ltr:mr-1 rtl:ml-1" data-translate-key="persona_motivations">الدوافع:</strong> <span class="text-slate-500" data-translate-key="persona2_motivations_text">الترقية الوظيفية، مواكبة التطورات.</span></li>
+                                    <li class="flex items-start"><span class="text-indigo-500 ltr:mr-2 rtl:ml-2 mt-1">&#10003;</span><strong class="flex-shrink-0 ltr:mr-1 rtl:ml-1" data-translate-key="persona_challenges">التحديات:</strong> <span class="text-slate-500" data-translate-key="persona2_challenges_text">ضيق الوقت، التوفيق بين العمل والدراسة، الحاجة للمرونة.</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                    
+                    <!-- Section 3: Enhanced Customer Journey -->
+                    <section id="journey" class="content-card">
+                        <h2 class="text-3xl font-bold mb-8 flex items-center">
+                            <span class="text-white bg-teal-600 rounded-lg p-2 ltr:mr-4 rtl:ml-4">
+                                <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V7.618a1 1 0 01.553-.894L9 4m0 16v-5h6v5m0 0l5.447-2.724A1 1 0 0021 16.382V7.618a1 1 0 00-.553-.894L15 4m-6 16h6m-6-5h6m0 0l-6-5m6 5v7" /></svg>
+                            </span>
+                            <span data-translate-key="section_title_journey">3. رحلة العميل المحسنة</span>
+                        </h2>
+                        <div class="relative space-y-12">
+                            <!-- Journey Item 1 -->
+                            <div class="journey-item">
+                                <div class="journey-dot h-4 w-4 rounded-full" style="border-color: #0d9488;"></div>
+                                <div class="ltr:ml-12 rtl:mr-12">
+                                    <div class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-teal-500">
+                                        <h3 class="text-xl font-bold text-teal-700 mb-2" data-translate-key="journey1_title">مرحلة الوعي (Awareness)</h3>
+                                        <p class="text-slate-600 mb-4" data-translate-key="journey1_desc">جعل الجمهور يدرك وجود الأكاديمية عبر محتوى جذاب ومفيد.</p>
+                                        <div class="flex flex-wrap gap-2 text-sm">
+                                            <span class="bg-teal-100 text-teal-800 px-3 py-1 rounded-full" data-translate-key="journey1_tag1">مقالات مدونة</span>
+                                            <span class="bg-teal-100 text-teal-800 px-3 py-1 rounded-full" data-translate-key="journey1_tag2">فيديوهات قصيرة</span>
+                                            <span class="bg-teal-100 text-teal-800 px-3 py-1 rounded-full" data-translate-key="journey1_tag3">إعلانات سوشيال</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Journey Item 2 -->
+                            <div class="journey-item">
+                                <div class="journey-dot h-4 w-4 rounded-full" style="border-color: #0369a1;"></div>
+                                <div class="ltr:ml-12 rtl:mr-12">
+                                    <div class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-sky-600">
+                                        <h3 class="text-xl font-bold text-sky-700 mb-2" data-translate-key="journey2_title">مرحلة التقييم (Consideration)</h3>
+                                        <p class="text-slate-600 mb-4" data-translate-key="journey2_desc">مساعدة العملاء على فهم كيف تحل دوراتنا مشاكلهم عبر محتوى متعمق.</p>
+                                        <div class="flex flex-wrap gap-2 text-sm">
+                                            <span class="bg-sky-100 text-sky-800 px-3 py-1 rounded-full" data-translate-key="journey2_tag1">ندوات ويب</span>
+                                            <span class="bg-sky-100 text-sky-800 px-3 py-1 rounded-full" data-translate-key="journey2_tag2">دراسات حالة</span>
+                                            <span class="bg-sky-100 text-sky-800 px-3 py-1 rounded-full" data-translate-key="journey2_tag3">إعادة استهداف</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Journey Item 3 -->
+                            <div class="journey-item">
+                                <div class="journey-dot h-4 w-4 rounded-full" style="border-color: #6d28d9;"></div>
+                                <div class="ltr:ml-12 rtl:mr-12">
+                                    <div class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-violet-700">
+                                        <h3 class="text-xl font-bold text-violet-700 mb-2" data-translate-key="journey3_title">مرحلة القرار (Decision)</h3>
+                                        <p class="text-slate-600 mb-4" data-translate-key="journey3_desc">تحويل العملاء المحتملين إلى طلاب مسجلين عبر عروض وقيمة مضافة.</p>
+                                        <div class="flex flex-wrap gap-2 text-sm">
+                                            <span class="bg-violet-100 text-violet-800 px-3 py-1 rounded-full" data-translate-key="journey3_tag1">عروض خاصة</span>
+                                            <span class="bg-violet-100 text-violet-800 px-3 py-1 rounded-full" data-translate-key="journey3_tag2">استشارات مجانية</span>
+                                            <span class="bg-violet-100 text-violet-800 px-3 py-1 rounded-full" data-translate-key="journey3_tag3">شهادات طلاب</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Journey Item 4 -->
+                            <div class="journey-item">
+                                <div class="journey-dot h-4 w-4 rounded-full" style="border-color: #db2777;"></div>
+                                <div class="ltr:ml-12 rtl:mr-12">
+                                    <div class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-pink-600">
+                                        <h3 class="text-xl font-bold text-pink-700 mb-2" data-translate-key="journey4_title">مرحلة الولاء (Loyalty)</h3>
+                                        <p class="text-slate-600 mb-4" data-translate-key="journey4_desc">بناء علاقة طويلة الأمد وتشجيعهم على العودة مرة أخرى.</p>
+                                        <div class="flex flex-wrap gap-2 text-sm">
+                                            <span class="bg-pink-100 text-pink-800 px-3 py-1 rounded-full" data-translate-key="journey4_tag1">محتوى حصري</span>
+                                            <span class="bg-pink-100 text-pink-800 px-3 py-1 rounded-full" data-translate-key="journey4_tag2">برامج ولاء</span>
+                                            <span class="bg-pink-100 text-pink-800 px-3 py-1 rounded-full" data-translate-key="journey4_tag3">مجتمعات طلابية</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    
+                    <!-- Section 4: Comprehensive Marketing Strategy -->
+                    <section id="strategy" class="content-card">
+                         <h2 class="text-3xl font-bold mb-8 flex items-center">
+                            <span class="text-white bg-orange-600 rounded-lg p-2 ltr:mr-4 rtl:ml-4">
+                                <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" /></svg>
+                            </span>
+                            <span data-translate-key="section_title_strategy">4. استراتيجية التسويق الشاملة</span>
+                        </h2>
+                        <div class="bg-white p-6 rounded-xl shadow-lg">
+                            <div class="space-y-2" id="strategy-accordion">
+                                <!-- Accordion Item -->
+                                <div class="accordion-item bg-slate-50 rounded-lg">
+                                    <button class="accordion-header w-full text-left rtl:text-right p-4 font-semibold flex justify-between items-center">
+                                        <span data-translate-key="strategy_accordion1_title">معالجة نقاط الضعف والتهديدات</span>
+                                        <svg class="w-5 h-5 transform transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                                    </button>
+                                    <div class="accordion-content p-4 pt-0">
+                                        <p class="text-slate-600" data-translate-key="strategy_accordion1_content">حلول استباقية لمشاكل مثل التفاعل المنخفض، تأخر الشهادات، والمنافسة السعرية عبر تحسين المحتوى والعمليات والتركيز على القيمة المضافة.</p>
+                                    </div>
+                                </div>
+                                <!-- Accordion Item -->
+                                <div class="accordion-item bg-slate-50 rounded-lg">
+                                    <button class="accordion-header w-full text-left rtl:text-right p-4 font-semibold flex justify-between items-center">
+                                        <span data-translate-key="strategy_accordion2_title">استراتيجيات TOWS المحدثة</span>
+                                         <svg class="w-5 h-5 transform transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                                    </button>
+                                    <div class="accordion-content p-4 pt-0">
+                                        <p class="text-slate-600" data-translate-key="strategy_accordion2_content">تطبيق مصفوفة TOWS لاستغلال نقاط القوة والفرص (هجوم ذكي)، الدفاع ضد التهديدات، تحويل نقاط الضعف لفرص (تطوير سريع)، وبناء مرونة وقائية.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Section 5: Content Strategy -->
+                     <section id="content" class="content-card">
+                         <h2 class="text-3xl font-bold mb-8 flex items-center">
+                            <span class="text-white bg-lime-600 rounded-lg p-2 ltr:mr-4 rtl:ml-4">
+                                <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
+                            </span>
+                            <span data-translate-key="section_title_content">5. استراتيجية المحتوى والتوزيع</span>
+                        </h2>
+                        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                            <div class="bg-white p-4 rounded-lg shadow text-center hover:bg-lime-50 transition">
+                                <p class="font-bold" data-translate-key="content_type1">المدونات</p><p class="text-sm text-slate-500" data-translate-key="content_freq1">2-3 شهريًا</p>
+                            </div>
+                             <div class="bg-white p-4 rounded-lg shadow text-center hover:bg-lime-50 transition">
+                                <p class="font-bold" data-translate-key="content_type2">الفيديوهات</p><p class="text-sm text-slate-500" data-translate-key="content_freq2">4-8 شهريًا</p>
+                            </div>
+                             <div class="bg-white p-4 rounded-lg shadow text-center hover:bg-lime-50 transition">
+                                <p class="font-bold" data-translate-key="content_type3">البودكاست</p><p class="text-sm text-slate-500" data-translate-key="content_freq3">1-2 شهريًا</p>
+                            </div>
+                             <div class="bg-white p-4 rounded-lg shadow text-center hover:bg-lime-50 transition">
+                                <p class="font-bold" data-translate-key="content_type4">إنفوجرافيك</p><p class="text-sm text-slate-500" data-translate-key="content_freq4">2-3 شهريًا</p>
+                            </div>
+                             <div class="bg-white p-4 rounded-lg shadow text-center hover:bg-lime-50 transition">
+                                <p class="font-bold" data-translate-key="content_type5">كتب إلكترونية</p><p class="text-sm text-slate-500" data-translate-key="content_freq5">1 ربع سنويًا</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg shadow text-center hover:bg-lime-50 transition">
+                                <p class="font-bold" data-translate-key="content_type6">بريد إلكتروني</p><p class="text-sm text-slate-500" data-translate-key="content_freq6">أسبوعي</p>
+                            </div>
+                        </div>
+                     </section>
+
+                    <!-- Section 6: Detailed Tactics -->
+                    <section id="tactics" class="content-card">
+                         <h2 class="text-3xl font-bold mb-8 flex items-center">
+                            <span class="text-white bg-cyan-600 rounded-lg p-2 ltr:mr-4 rtl:ml-4">
+                               <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
+                            </span>
+                            <span data-translate-key="section_title_tactics">6. التكتيكات التفصيلية</span>
+                        </h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <div class="bg-white p-6 rounded-xl shadow-lg">
+                                <h3 class="font-bold text-lg mb-3" data-translate-key="tactic1_title">إعلانات مدفوعة</h3>
+                                <ul class="space-y-2 text-slate-600 text-sm">
+                                    <li data-translate-key="tactic1_item1">حملات Google Search</li>
+                                    <li data-translate-key="tactic1_item2">إعلانات Social Media</li>
+                                    <li data-translate-key="tactic1_item3">إعلانات YouTube</li>
+                                </ul>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl shadow-lg">
+                                <h3 class="font-bold text-lg mb-3" data-translate-key="tactic2_title">تحسين محركات البحث</h3>
+                                <ul class="space-y-2 text-slate-600 text-sm">
+                                    <li data-translate-key="tactic2_item1">تطوير المحتوى (On-Page)</li>
+                                    <li data-translate-key="tactic2_item2">تحسين فني للموقع (Technical)</li>
+                                    <li data-translate-key="tactic2_item3">بناء السمعة (Off-Page)</li>
+                                </ul>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl shadow-lg">
+                                <h3 class="font-bold text-lg mb-3" data-translate-key="tactic3_title">تسويق عبر السوشيال</h3>
+                                <ul class="space-y-2 text-slate-600 text-sm">
+                                    <li data-translate-key="tactic3_item1">محتوى مرئي جذاب</li>
+                                    <li data-translate-key="tactic3_item2">بث مباشر ومسابقات</li>
+                                    <li data-translate-key="tactic3_item3">بناء مجتمعات طلابية</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                    
+                    <!-- Section 7: Timeline -->
+                    <section id="timeline" class="content-card">
+                        <h2 class="text-3xl font-bold mb-8 flex items-center">
+                            <span class="text-white bg-green-600 rounded-lg p-2 ltr:mr-4 rtl:ml-4">
+                               <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                            </span>
+                            <span data-translate-key="section_title_timeline">7. خطة العمل والجدول الزمني</span>
+                        </h2>
+                        <div class="space-y-12">
+                            <div class="timeline-item">
+                                <div class="timeline-dot h-4 w-4 rounded-full"></div>
+                                <div class="ltr:ml-12 rtl:mr-12">
+                                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                                        <p class="text-sm text-blue-600 font-bold" data-translate-key="timeline_month1_phase">الشهر 1</p>
+                                        <h3 class="text-xl font-bold my-2" data-translate-key="timeline_month1_title">التأسيس والتحسين الأساسي</h3>
+                                        <p class="text-slate-600" data-translate-key="timeline_month1_desc">تدقيق الموقع، بحث الكلمات المفتاحية، بناء شخصيات المشتري، وإطلاق الحملات الأولية للوعي.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-dot h-4 w-4 rounded-full"></div>
+                                <div class="ltr:ml-12 rtl:mr-12">
+                                     <div class="bg-white p-6 rounded-xl shadow-lg">
+                                        <p class="text-sm text-blue-600 font-bold" data-translate-key="timeline_month2_3_phase">الشهر 2-3</p>
+                                        <h3 class="text-xl font-bold my-2" data-translate-key="timeline_month2_3_title">النمو والتفاعل</h3>
+                                        <p class="text-slate-600" data-translate-key="timeline_month2_3_desc">نشر المحتوى بانتظام، إطلاق حملات توليد العملاء، تحسين الإعلانات، وبناء مجتمع تفاعلي.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-dot h-4 w-4 rounded-full"></div>
+                                <div class="ltr:ml-12 rtl:mr-12">
+                                     <div class="bg-white p-6 rounded-xl shadow-lg">
+                                        <p class="text-sm text-blue-600 font-bold" data-translate-key="timeline_month4_6_phase">الشهر 4-6</p>
+                                        <h3 class="text-xl font-bold my-2" data-translate-key="timeline_month4_6_title">التحويل والتميز</h3>
+                                        <p class="text-slate-600" data-translate-key="timeline_month4_6_desc">التركيز على زيادة التسجيلات، تعزيز القيمة المضافة، بناء السمعة عبر قصص النجاح وإدارة التقييمات.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Section 8: Budget -->
+                    <section id="budget" class="content-card">
+                        <h2 class="text-3xl font-bold mb-8 flex items-center">
+                            <span class="text-white bg-red-600 rounded-lg p-2 ltr:mr-4 rtl:ml-4">
+                               <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                            </span>
+                            <span data-translate-key="section_title_budget">8. الميزانية المخصصة</span>
+                        </h2>
+                        <div class="bg-white p-8 rounded-xl shadow-2xl">
+                             <p class="text-center mb-2" data-translate-key="budget_total">الميزانية الشهرية المقترحة</p>
+                             <p class="text-center text-4xl font-extrabold text-slate-800 mb-8" data-translate-key="budget_amount">50,000 جنيه مصري</p>
+                             <div class="space-y-4">
+                                <div class="budget-item">
+                                    <div class="flex justify-between mb-1 font-semibold">
+                                        <span data-translate-key="budget_item1_label">الإعلانات المدفوعة</span>
+                                        <span data-translate-key="budget_item1_value">60%</span>
+                                    </div>
+                                    <div class="w-full bg-slate-200 rounded-full h-4">
+                                        <div class="bg-blue-500 h-4 rounded-full" style="width: 60%"></div>
+                                    </div>
+                                </div>
+                                <div class="budget-item">
+                                    <div class="flex justify-between mb-1 font-semibold">
+                                        <span data-translate-key="budget_item2_label">إنتاج المحتوى والتصميم</span>
+                                        <span data-translate-key="budget_item2_value">16%</span>
+                                    </div>
+                                    <div class="w-full bg-slate-200 rounded-full h-4">
+                                        <div class="bg-indigo-500 h-4 rounded-full" style="width: 16%"></div>
+                                    </div>
+                                </div>
+                                <div class="budget-item">
+                                    <div class="flex justify-between mb-1 font-semibold">
+                                        <span data-translate-key="budget_item3_label">تحسين الموقع</span>
+                                        <span data-translate-key="budget_item3_value">10%</span>
+                                    </div>
+                                    <div class="w-full bg-slate-200 rounded-full h-4">
+                                        <div class="bg-purple-500 h-4 rounded-full" style="width: 10%"></div>
+                                    </div>
+                                </div>
+                                <div class="budget-item">
+                                    <div class="flex justify-between mb-1 font-semibold">
+                                        <span data-translate-key="budget_item4_label">أدوات التسويق</span>
+                                        <span data-translate-key="budget_item4_value">8%</span>
+                                    </div>
+                                    <div class="w-full bg-slate-200 rounded-full h-4">
+                                        <div class="bg-pink-500 h-4 rounded-full" style="width: 8%"></div>
+                                    </div>
+                                </div>
+                                <div class="budget-item">
+                                    <div class="flex justify-between mb-1 font-semibold">
+                                        <span data-translate-key="budget_item5_label">إدارة السمعة والمؤثرين</span>
+                                        <span data-translate-key="budget_item5_value">6%</span>
+                                    </div>
+                                    <div class="w-full bg-slate-200 rounded-full h-4">
+                                        <div class="bg-amber-500 h-4 rounded-full" style="width: 6%"></div>
+                                    </div>
+                                </div>
+                             </div>
+                        </div>
+                    </section>
+                    
+                    <!-- Section 9: KPIs -->
+                    <section id="kpis" class="content-card">
+                        <h2 class="text-3xl font-bold mb-8 flex items-center">
+                            <span class="text-white bg-emerald-600 rounded-lg p-2 ltr:mr-4 rtl:ml-4">
+                                <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                            </span>
+                            <span data-translate-key="section_title_kpis">9. مؤشرات الأداء الرئيسية (KPIs)</span>
+                        </h2>
+                        <div>
+                           <div class="mb-6">
+                               <h3 class="text-xl font-bold mb-4" data-translate-key="kpi_group1_title">مؤشرات الوعي والتفاعل</h3>
+                               <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                   <div class="bg-white p-4 rounded-lg shadow text-center"><p data-translate-key="kpi1_reach">الوصول (Reach)</p></div>
+                                   <div class="bg-white p-4 rounded-lg shadow text-center"><p data-translate-key="kpi1_traffic">زيارات الموقع</p></div>
+                                   <div class="bg-white p-4 rounded-lg shadow text-center"><p data-translate-key="kpi1_engagement">معدل التفاعل</p></div>
+                                   <div class="bg-white p-4 rounded-lg shadow text-center"><p data-translate-key="kpi1_ctr">معدل النقر</p></div>
+                               </div>
+                           </div>
+                           <div>
+                               <h3 class="text-xl font-bold mb-4" data-translate-key="kpi_group2_title">مؤشرات التحويل والأعمال</h3>
+                               <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                   <div class="bg-white p-4 rounded-lg shadow text-center"><p data-translate-key="kpi2_leads">عدد العملاء</p></div>
+                                   <div class="bg-white p-4 rounded-lg shadow text-center"><p data-translate-key="kpi2_cpl">تكلفة العميل</p></div>
+                                   <div class="bg-white p-4 rounded-lg shadow text-center"><p data-translate-key="kpi2_cac">تكلفة الاكتساب</p></div>
+                                   <div class="bg-white p-4 rounded-lg shadow text-center"><p data-translate-key="kpi2_roi">عائد الاستثمار</p></div>
+                               </div>
+                           </div>
+                        </div>
+                    </section>
+
+                 </div>
+             </div>
+        </main>
+    </div>
+
+    <script>
+        // --- TRANSLATION DATA ---
+        const translations = {
+            en: {
+                // Sidebar & Main Header
+                sidebar_title: "Plan",
+                main_title: "Integrated Digital Marketing Plan",
+                main_subtitle: "An interactive dashboard to explore our academy's growth strategies.",
+                // Nav links
+                nav_goals: "SMART Goals",
+                nav_audience: "Target Audience",
+                nav_journey: "Customer Journey",
+                nav_strategy: "Strategy",
+                nav_content: "Content",
+                nav_tactics: "Tactics",
+                nav_timeline: "Timeline",
+                nav_budget: "Budget",
+                nav_kpis: "KPIs",
+                // Section Titles
+                section_title_goals: "1. SMART Goals",
+                section_title_audience: "2. Target Audience & Personas",
+                section_title_journey: "3. Enhanced Customer Journey",
+                section_title_strategy: "4. Comprehensive Marketing Strategy",
+                section_title_content: "5. Content Strategy & Distribution",
+                section_title_tactics: "6. Detailed Tactics",
+                section_title_timeline: "7. Action Plan & Timeline",
+                section_title_budget: "8. Allocated Budget",
+                section_title_kpis: "9. Key Performance Indicators (KPIs)",
+                // Goals Section
+                goals_card1_title: "Boost Awareness",
+                goals_card1_text: "50% increase in organic reach & 30% in website visits within 6 months.",
+                goals_card2_title: "Generate Leads",
+                goals_card2_text: "25% increase in subscribers & 20% in inquiries within 6 months.",
+                goals_card3_title: "Drive Sales",
+                goals_card3_text: "15% increase in conversion rate & 20% revenue growth within a year.",
+                goals_card4_title: "Build Loyalty",
+                goals_card4_text: "10% increase in student retention & improve ratings to 4.5 within 6 months.",
+                // Audience Section
+                persona1_title: "Persona 1: The Ambitious Futurist",
+                persona1_desc: "A recent graduate or young professional seeking practical skills to enter the job market strongly.",
+                persona_motivations: "Motivations:",
+                persona_challenges: "Challenges:",
+                persona1_motivations_text: "Getting a better job, building a strong resume.",
+                persona1_challenges_text: "Lack of experience, cost of courses, finding reliable content.",
+                persona2_title: "Persona 2: The Seasoned Specialist",
+                persona2_desc: "An experienced professional seeking to update skills, get a promotion, or specialize in a niche area.",
+                persona2_motivations_text: "Career advancement, keeping up with trends.",
+                persona2_challenges_text: "Lack of time, balancing work and study, need for flexibility.",
+                // Journey Section
+                journey1_title: "Awareness Stage",
+                journey1_desc: "Making the audience aware of the academy's existence through engaging and useful content.",
+                journey1_tag1: "Blog Posts",
+                journey1_tag2: "Short Videos",
+                journey1_tag3: "Social Ads",
+                journey2_title: "Consideration Stage",
+                journey2_desc: "Helping customers understand how our courses solve their problems through in-depth content.",
+                journey2_tag1: "Webinars",
+                journey2_tag2: "Case Studies",
+                journey2_tag3: "Retargeting",
+                journey3_title: "Decision Stage",
+                journey3_desc: "Converting potential customers into registered students through offers and added value.",
+                journey3_tag1: "Special Offers",
+                journey3_tag2: "Free Consultations",
+                journey3_tag3: "Testimonials",
+                journey4_title: "Loyalty Stage",
+                journey4_desc: "Building a long-term relationship and encouraging them to return.",
+                journey4_tag1: "Exclusive Content",
+                journey4_tag2: "Loyalty Programs",
+                journey4_tag3: "Student Communities",
+                // Strategy Section
+                strategy_accordion1_title: "Addressing Weaknesses & Threats",
+                strategy_accordion1_content: "Proactive solutions for issues like low engagement, certificate delays, and price competition by improving content, processes, and focusing on added value.",
+                strategy_accordion2_title: "Updated TOWS Strategies",
+                strategy_accordion2_content: "Applying the TOWS matrix to leverage strengths and opportunities (smart offense), defend against threats, turn weaknesses into opportunities (rapid development), and build preventive resilience.",
+                // Content Section
+                content_type1: "Blogs",
+                content_freq1: "2-3/month",
+                content_type2: "Videos",
+                content_freq2: "4-8/month",
+                content_type3: "Podcasts",
+                content_freq3: "1-2/month",
+                content_type4: "Infographics",
+                content_freq4: "2-3/month",
+                content_type5: "eBooks",
+                content_freq5: "1/quarter",
+                content_type6: "Emails",
+                content_freq6: "Weekly",
+                // Tactics Section
+                tactic1_title: "Paid Advertising",
+                tactic1_item1: "Google Search Campaigns",
+                tactic1_item2: "Social Media Ads",
+                tactic1_item3: "YouTube Ads",
+                tactic2_title: "Search Engine Optimization",
+                tactic2_item1: "On-Page Content Development",
+                tactic2_item2: "Technical Site Optimization",
+                tactic2_item3: "Off-Page Reputation Building",
+                tactic3_title: "Social Media Marketing",
+                tactic3_item1: "Engaging Visual Content",
+                tactic3_item2: "Live Streams & Contests",
+                tactic3_item3: "Building Student Communities",
+                // Timeline Section
+                timeline_month1_phase: "Month 1",
+                timeline_month1_title: "Foundation & Core Optimization",
+                timeline_month1_desc: "Audit the website, research keywords, build buyer personas, and launch initial awareness campaigns.",
+                timeline_month2_3_phase: "Months 2-3",
+                timeline_month2_3_title: "Growth & Engagement",
+                timeline_month2_3_desc: "Publish content regularly, launch lead generation campaigns, optimize ads, and build an interactive community.",
+                timeline_month4_6_phase: "Months 4-6",
+                timeline_month4_6_title: "Conversion & Excellence",
+                timeline_month4_6_desc: "Focus on increasing registrations, enhancing value, and building reputation through success stories and review management.",
+                 // Budget Section
+                budget_total: "Proposed Monthly Budget",
+                budget_amount: "EGP 50,000",
+                budget_item1_label: "Paid Advertising",
+                budget_item1_value: "60%",
+                budget_item2_label: "Content & Design Production",
+                budget_item2_value: "16%",
+                budget_item3_label: "Website Optimization",
+                budget_item3_value: "10%",
+                budget_item4_label: "Marketing Tools",
+                budget_item4_value: "8%",
+                budget_item5_label: "Reputation & Influencers",
+                budget_item5_value: "6%",
+                // KPIs Section
+                kpi_group1_title: "Awareness & Engagement KPIs",
+                kpi1_reach: "Reach",
+                kpi1_traffic: "Website Traffic",
+                kpi1_engagement: "Engagement Rate",
+                kpi1_ctr: "Click-Through Rate",
+                kpi_group2_title: "Conversion & Business KPIs",
+                kpi2_leads: "Number of Leads",
+                kpi2_cpl: "Cost Per Lead (CPL)",
+                kpi2_cac: "Cost Per Acquisition (CAC)",
+                kpi2_roi: "Return on Investment (ROI)",
+            },
+            ar: {
+                // Sidebar & Main Header
+                sidebar_title: "الخطة",
+                main_title: "الخطة التسويقية الرقمية المتكاملة",
+                main_subtitle: "لوحة معلومات تفاعلية لاستكشاف استراتيجيات النمو لأكاديميتنا.",
+                // Nav links
+                nav_goals: "الأهداف الذكية",
+                nav_audience: "الجمهور المستهدف",
+                nav_journey: "رحلة العميل",
+                nav_strategy: "الاستراتيجية",
+                nav_content: "المحتوى",
+                nav_tactics: "التكتيكات",
+                nav_timeline: "الجدول الزمني",
+                nav_budget: "الميزانية",
+                nav_kpis: "مؤشرات الأداء",
+                // Section Titles
+                section_title_goals: "1. الأهداف الذكية (SMART Goals)",
+                section_title_audience: "2. الجمهور المستهدف وشخصيات المشتري",
+                section_title_journey: "3. رحلة العميل المحسنة",
+                section_title_strategy: "4. استراتيجية التسويق الشاملة",
+                section_title_content: "5. استراتيجية المحتوى والتوزيع",
+                section_title_tactics: "6. التكتيكات التفصيلية",
+                section_title_timeline: "7. خطة العمل والجدول الزمني",
+                section_title_budget: "8. الميزانية المخصصة",
+                section_title_kpis: "9. مؤشرات الأداء الرئيسية (KPIs)",
+                // Goals Section
+                goals_card1_title: "زيادة الوعي",
+                goals_card1_text: "زيادة الوصول العضوي بنسبة 50% وزيارات الموقع بنسبة 30% خلال 6 أشهر.",
+                goals_card2_title: "توليد العملاء",
+                goals_card2_text: "زيادة المشتركين بنسبة 25% والاستفسارات بنسبة 20% خلال 6 أشهر.",
+                goals_card3_title: "زيادة المبيعات",
+                goals_card3_text: "زيادة معدل التحويل بنسبة 15% ونمو الإيرادات بنسبة 20% خلال سنة.",
+                goals_card4_title: "بناء الولاء",
+                goals_card4_text: "زيادة الاحتفاظ بالطلاب 10% وتحسين التقييمات إلى 4.5 خلال 6 أشهر.",
+                // Audience Section
+                persona1_title: "شخصية ١: طموح المستقبل",
+                persona1_desc: "خريج حديث أو شاب مهني يبحث عن اكتساب مهارات عملية لدخول سوق العمل بقوة.",
+                persona_motivations: "الدوافع:",
+                persona_challenges: "التحديات:",
+                persona1_motivations_text: "الحصول على وظيفة أفضل، بناء سيرة ذاتية قوية.",
+                persona1_challenges_text: "نقص الخبرة، تكلفة الدورات، إيجاد محتوى موثوق.",
+                persona2_title: "شخصية ٢: المتخصص المتمرس",
+                persona2_desc: "مهني ذو خبرة يسعى لتحديث مهاراته، الحصول على ترقية، أو التخصص في مجال دقيق.",
+                persona2_motivations_text: "الترقية الوظيفية، مواكبة التطورات.",
+                persona2_challenges_text: "ضيق الوقت، التوفيق بين العمل والدراسة، الحاجة للمرونة.",
+                // Journey Section
+                journey1_title: "مرحلة الوعي (Awareness)",
+                journey1_desc: "جعل الجمهور يدرك وجود الأكاديمية عبر محتوى جذاب ومفيد.",
+                journey1_tag1: "مقالات مدونة",
+                journey1_tag2: "فيديوهات قصيرة",
+                journey1_tag3: "إعلانات سوشيال",
+                journey2_title: "مرحلة التقييم (Consideration)",
+                journey2_desc: "مساعدة العملاء على فهم كيف تحل دوراتنا مشاكلهم عبر محتوى متعمق.",
+                journey2_tag1: "ندوات ويب",
+                journey2_tag2: "دراسات حالة",
+                journey2_tag3: "إعادة استهداف",
+                journey3_title: "مرحلة القرار (Decision)",
+                journey3_desc: "تحويل العملاء المحتملين إلى طلاب مسجلين عبر عروض وقيمة مضافة.",
+                journey3_tag1: "عروض خاصة",
+                journey3_tag2: "استشارات مجانية",
+                journey3_tag3: "شهادات طلاب",
+                journey4_title: "مرحلة الولاء (Loyalty)",
+                journey4_desc: "بناء علاقة طويلة الأمد وتشجيعهم على العودة مرة أخرى.",
+                journey4_tag1: "محتوى حصري",
+                journey4_tag2: "برامج ولاء",
+                journey4_tag3: "مجتمعات طلابية",
+                 // Strategy Section
+                strategy_accordion1_title: "معالجة نقاط الضعف والتهديدات",
+                strategy_accordion1_content: "حلول استباقية لمشاكل مثل التفاعل المنخفض، تأخر الشهادات، والمنافسة السعرية عبر تحسين المحتوى والعمليات والتركيز على القيمة المضافة.",
+                strategy_accordion2_title: "استراتيجيات TOWS المحدثة",
+                strategy_accordion2_content: "تطبيق مصفوفة TOWS لاستغلال نقاط القوة والفرص (هجوم ذكي)، الدفاع ضد التهديدات، تحويل نقاط الضعف لفرص (تطوير سريع)، وبناء مرونة وقائية.",
+                // Content Section
+                content_type1: "المدونات",
+                content_freq1: "2-3 شهريًا",
+                content_type2: "الفيديوهات",
+                content_freq2: "4-8 شهريًا",
+                content_type3: "البودكاست",
+                content_freq3: "1-2 شهريًا",
+                content_type4: "إنفوجرافيك",
+                content_freq4: "2-3 شهريًا",
+                content_type5: "كتب إلكترونية",
+                content_freq5: "1 ربع سنويًا",
+                content_type6: "بريد إلكتروني",
+                content_freq6: "أسبوعي",
+                // Tactics Section
+                tactic1_title: "إعلانات مدفوعة",
+                tactic1_item1: "حملات Google Search",
+                tactic1_item2: "إعلانات Social Media",
+                tactic1_item3: "إعلانات YouTube",
+                tactic2_title: "تحسين محركات البحث",
+                tactic2_item1: "تطوير المحتوى (On-Page)",
+                tactic2_item2: "تحسين فني للموقع (Technical)",
+                tactic2_item3: "بناء السمعة (Off-Page)",
+                tactic3_title: "تسويق عبر السوشيال",
+                tactic3_item1: "محتوى مرئي جذاب",
+                tactic3_item2: "بث مباشر ومسابقات",
+                tactic3_item3: "بناء مجتمعات طلابية",
+                // Timeline Section
+                timeline_month1_phase: "الشهر 1",
+                timeline_month1_title: "التأسيس والتحسين الأساسي",
+                timeline_month1_desc: "تدقيق الموقع، بحث الكلمات المفتاحية، بناء شخصيات المشتري، وإطلاق الحملات الأولية للوعي.",
+                timeline_month2_3_phase: "الشهر 2-3",
+                timeline_month2_3_title: "النمو والتفاعل",
+                timeline_month2_3_desc: "نشر المحتوى بانتظام، إطلاق حملات توليد العملاء، تحسين الإعلانات، وبناء مجتمع تفاعلي.",
+                timeline_month4_6_phase: "الشهر 4-6",
+                timeline_month4_6_title: "التحويل والتميز",
+                timeline_month4_6_desc: "التركيز على زيادة التسجيلات، تعزيز القيمة المضافة، بناء السمعة عبر قصص النجاح وإدارة التقييمات.",
+                // Budget Section
+                budget_total: "الميزانية الشهرية المقترحة",
+                budget_amount: "50,000 جنيه مصري",
+                budget_item1_label: "الإعلانات المدفوعة",
+                budget_item1_value: "60%",
+                budget_item2_label: "إنتاج المحتوى والتصميم",
+                budget_item2_value: "16%",
+                budget_item3_label: "تحسين الموقع",
+                budget_item3_value: "10%",
+                budget_item4_label: "أدوات التسويق",
+                budget_item4_value: "8%",
+                budget_item5_label: "إدارة السمعة والمؤثرين",
+                budget_item5_value: "6%",
+                // KPIs Section
+                kpi_group1_title: "مؤشرات الوعي والتفاعل",
+                kpi1_reach: "الوصول (Reach)",
+                kpi1_traffic: "زيارات الموقع",
+                kpi1_engagement: "معدل التفاعل",
+                kpi1_ctr: "معدل النقر",
+                kpi_group2_title: "مؤشرات التحويل والأعمال",
+                kpi2_leads: "عدد العملاء",
+                kpi2_cpl: "تكلفة العميل",
+                kpi2_cac: "تكلفة الاكتساب",
+                kpi2_roi: "عائد الاستثمار",
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const mainContent = document.getElementById('main-content');
+            const sidebar = document.querySelector('.sidebar');
+            const navLinks = document.querySelectorAll('.sidebar-link');
+            const sections = document.querySelectorAll('section[id]');
+            
+            // Adjust main content padding based on sidebar width
+            const adjustMainContentPadding = () => {
+                const sidebarWidth = sidebar.offsetWidth;
+                if(document.documentElement.dir === 'ltr') {
+                    mainContent.style.paddingLeft = `${sidebarWidth}px`;
+                    mainContent.style.paddingRight = '';
+                } else {
+                    mainContent.style.paddingRight = `${sidebarWidth}px`;
+                    mainContent.style.paddingLeft = '';
+                }
+            };
+            
+            new ResizeObserver(adjustMainContentPadding).observe(sidebar);
+
+            // --- LANGUAGE SWITCHING ---
+            const langEnButton = document.getElementById('lang-en');
+            const langArButton = document.getElementById('lang-ar');
+            const translatableElements = document.querySelectorAll('[data-translate-key]');
+
+            const switchLanguage = (lang) => {
+                document.documentElement.lang = lang;
+                document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+                document.title = lang === 'ar' ? 'لوحة معلومات الخطة التسويقية' : 'Marketing Plan Dashboard';
+
+                translatableElements.forEach(el => {
+                    const key = el.dataset.translateKey;
+                    if (translations[lang] && translations[lang][key]) {
+                        el.innerHTML = translations[lang][key];
+                    }
+                });
+
+                if (lang === 'ar') {
+                    langArButton.classList.add('bg-blue-600', 'text-white');
+                    langEnButton.classList.remove('bg-blue-600', 'text-white');
+                } else {
+                    langEnButton.classList.add('bg-blue-600', 'text-white');
+                    langArButton.classList.remove('bg-blue-600', 'text-white');
+                }
+                adjustMainContentPadding();
+            };
+
+            langEnButton.addEventListener('click', () => switchLanguage('en'));
+            langArButton.addEventListener('click', () => switchLanguage('ar'));
+
+            // --- INTERSECTION OBSERVERS ---
+            const cardObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('is-visible');
+                });
+            }, { threshold: 0.1 });
+            
+            document.querySelectorAll('.content-card').forEach(card => cardObserver.observe(card));
+
+            const navObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        navLinks.forEach(link => {
+                            link.classList.toggle('active', link.getAttribute('data-nav-id') === id);
+                        });
+                    }
+                });
+            }, { rootMargin: '-30% 0px -70% 0px' });
+            
+            sections.forEach(section => navObserver.observe(section));
+            
+            // --- ACCORDION SCRIPT ---
+            const accordionHeaders = document.querySelectorAll('.accordion-header');
+            accordionHeaders.forEach(header => {
+                header.addEventListener('click', () => {
+                    const content = header.nextElementSibling;
+                    const icon = header.querySelector('svg');
+                    
+                    if (content.style.maxHeight) {
+                        content.style.maxHeight = null;
+                        icon.style.transform = 'rotate(0deg)';
+                    } else {
+                        content.style.maxHeight = content.scrollHeight + 'px';
+                        icon.style.transform = 'rotate(180deg)';
+                    }
+                });
+            });
+
+
+            // --- INITIALIZE ---
+            switchLanguage('ar');
+        });
+    </script>
+</body>
+</html>
