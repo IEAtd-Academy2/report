@@ -22,7 +22,7 @@
         }
         .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px M20px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
         }
         .premium-header {
             background: linear-gradient(135deg, #1e3a8a, #3b82f6);
@@ -102,7 +102,8 @@
                         clientCount: 258,
                         avgQuality: "70%",
                         incomeNoInstallments: "32,905",
-                        incomeWithInstallments: "97,320"
+                        incomeWithInstallments: "97,320",
+                        campaignExpenses: "20,000" // <-- New data point added here
                     },
                     employees: {
                         mahmoud: { 
@@ -191,22 +192,26 @@
                     <!-- General Stats -->
                     <div class="mb-8">
                         <h2 class="text-2xl font-bold text-gray-800 mb-4 text-center">التقرير العام لشهر ${monthSelector.options[monthSelector.selectedIndex].text} ${year}</h2>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
                             <div class="stat-card card p-6 flex items-center gap-4">
                                 <i data-lucide="users" class="w-12 h-12 text-blue-500"></i>
                                 <div><p class="text-gray-500 text-sm">عدد العملاء</p><p class="text-2xl font-bold text-gray-800">${data.general.clientCount}</p></div>
                             </div>
                             <div class="stat-card card p-6 flex items-center gap-4">
                                 <i data-lucide="star" class="w-12 h-12 text-yellow-500"></i>
-                                <div><p class="text-gray-500 text-sm">متوسط الجودة </p><p class="text-2xl font-bold text-gray-800">${data.general.avgQuality}</p></div>
+                                <div><p class="text-gray-500 text-sm">متوسط الجودة</p><p class="text-2xl font-bold text-gray-800">${data.general.avgQuality}</p></div>
                             </div>
                             <div class="stat-card card p-6 flex items-center gap-4">
                                 <i data-lucide="landmark" class="w-12 h-12 text-green-500"></i>
-                                <div><p class="text-gray-500 text-sm">الدخل (بلا أقساط من الحملات)</p><p class="text-2xl font-bold text-gray-800">${data.general.incomeNoInstallments}</p></div>
+                                <div><p class="text-gray-500 text-sm">الدخل (بلا أقساط)</p><p class="text-2xl font-bold text-gray-800">${data.general.incomeNoInstallments}</p></div>
                             </div>
                             <div class="stat-card card p-6 flex items-center gap-4">
                                 <i data-lucide="trending-up" class="w-12 h-12 text-purple-500"></i>
-                                <div><p class="text-gray-500 text-sm">الدخل (بأقساط من الحملات)</p><p class="text-2xl font-bold text-gray-800">${data.general.incomeWithInstallments}</p></div>
+                                <div><p class="text-gray-500 text-sm">الدخل (بأقساط)</p><p class="text-2xl font-bold text-gray-800">${data.general.incomeWithInstallments}</p></div>
+                            </div>
+                             <div class="stat-card card p-6 flex items-center gap-4">
+                                <i data-lucide="receipt" class="w-12 h-12 text-red-500"></i>
+                                <div><p class="text-gray-500 text-sm">مصروفات الحملات</p><p class="text-2xl font-bold text-gray-800">${data.general.campaignExpenses} جنيه</p></div>
                             </div>
                         </div>
                     </div>
@@ -287,5 +292,3 @@
     </script>
 </body>
 </html>
-
-
