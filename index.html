@@ -96,14 +96,14 @@
     <script>
         // Data Store
         const reportData = {
-            "2024": {
-                "8": { // August
+            "2025": {
+                "7": { // July - Data moved here
                     general: {
                         clientCount: 258,
                         avgQuality: "70%",
                         incomeNoInstallments: "32,905",
                         incomeWithInstallments: "97,320",
-                        campaignExpenses: "20,000" // <-- New data point added here
+                        campaignExpenses: "20,000"
                     },
                     employees: {
                         mahmoud: { 
@@ -144,6 +144,7 @@
                         }
                     }
                 }
+                // August 2025 is intentionally left empty
             }
         };
 
@@ -168,16 +169,17 @@
                 monthSelector.appendChild(option);
             });
 
-            const currentYear = new Date().getFullYear();
-            for (let i = currentYear - 1; i <= currentYear + 5; i++) {
+            const startYear = 2025;
+            for (let i = startYear; i <= startYear + 5; i++) {
                 const option = document.createElement('option');
                 option.value = i;
                 option.textContent = i;
                 yearSelector.appendChild(option);
             }
 
-            monthSelector.value = 8;
-            yearSelector.value = 2024;
+            // Set default to July 2025
+            monthSelector.value = 7;
+            yearSelector.value = 2025;
         }
 
         // Render Report
