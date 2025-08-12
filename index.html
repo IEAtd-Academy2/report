@@ -3,311 +3,293 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>عرض تقديمي | مميزات المنصة التعليمية</title>
+    <title>تقرير فريق السوشيال ميديا</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Tajawal', sans-serif;
-            overflow: hidden; /* Prevents scrolling the main page */
+            font-family: 'Cairo', sans-serif;
+            background-color: #f0f2f5;
         }
-        .slide {
-            min-height: 100vh;
-            width: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 2rem;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateX(50px);
-            transition: opacity 0.6s ease-in-out, visibility 0.6s ease-in-out, transform 0.6s ease-in-out;
-            background-color: #F9FAFB;
-        }
-        .slide.active {
-            opacity: 1;
-            visibility: visible;
-            transform: translateX(0);
-        }
-        .slide-content {
-            max-width: 900px;
-            width: 100%;
-            text-align: center;
-        }
-        .feature-card {
+        .card {
             background-color: white;
-            border-radius: 0.75rem;
-            padding: 1.5rem;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-            transition: all 0.3s ease;
-            text-align: right;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             border: 1px solid #e5e7eb;
-            height: 100%;
         }
-        .feature-card:hover {
+        .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
         }
-        .nav-btn {
-            position: fixed;
-            bottom: 2rem;
-            background-color: #2563EB;
+        .premium-header {
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
             color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 9999px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            box-shadow: 0 4px 14px 0 rgba(37, 99, 235, 0.3);
-            z-index: 50;
         }
-        .nav-btn:hover {
-            background-color: #1D4ED8;
+        .stat-card i {
+            transition: transform 0.3s ease;
         }
-        #prevBtn {
-            left: 2rem;
+        .stat-card:hover i {
+            transform: scale(1.1);
         }
-        #nextBtn {
-            right: 2rem;
+        .note-box {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 12px;
+            min-height: 80px;
+            color: #495057;
         }
-        .slide-counter {
-            position: fixed;
-            bottom: 2.5rem;
-            left: 50%;
-            transform: translateX(-50%);
-            color: #6B7280;
-            font-weight: 500;
-            background-color: rgba(255, 255, 255, 0.8);
-            padding: 0.5rem 1rem;
-            border-radius: 1rem;
-            z-index: 50;
+        .kpi-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #f1f1f1;
+        }
+        .kpi-item:last-child {
+            border-bottom: none;
         }
     </style>
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="bg-gray-100">
+<body class="antialiased">
 
-    <!-- Slide 1: Title -->
-    <div id="slide-1" class="slide active bg-blue-600 text-white">
-        <div class="slide-content text-center">
-            <h1 class="text-4xl md:text-6xl font-extrabold">المميزات المطلوبة في منصتنا</h1>
-            <p class="mt-4 text-xl md:text-2xl text-blue-200">نظام تعليمي متكامل ومبني على ووردبريس (WordPress)</p>
-            <p class="mt-8 text-lg">اضغط "التالي" لاستعراض المميزات</p>
-        </div>
-    </div>
+    <div class="container mx-auto p-4 md:p-8">
+        
+        <!-- Header -->
+        <header class="premium-header text-center p-6 rounded-xl mb-8 shadow-lg">
+            <div class="flex items-center justify-center gap-4">
+                <i data-lucide="users-2" class="w-10 h-10"></i>
+                <h1 class="text-3xl md:text-4xl font-bold">تقرير فريق السوشيال ميديا</h1>
+            </div>
+        </header>
 
-    <!-- Slide 2: Learner Experience -->
-    <div id="slide-2" class="slide">
-        <div class="slide-content">
-            <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-12">تجربة المتعلم</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="feature-card">
-                    <h4 class="font-bold text-lg mb-2">محاضرات مسجلة ومحمية</h4>
-                    <p class="text-gray-600">محتوى فيديو عالي الجودة مع حماية ضد تسجيل الشاشة وبرامج التحميل.</p>
-                </div>
-                <div class="feature-card">
-                    <h4 class="font-bold text-lg mb-2">بث مباشر (Zoom)</h4>
-                    <p class="text-gray-600">دمج كامل مع Zoom داخل المنصة لعقد محاضرات مباشرة وتفاعلية.</p>
-                </div>
-                <div class="feature-card">
-                    <h4 class="font-bold text-lg mb-2">مجموعات نقاش مجهولة</h4>
-                    <p class="text-gray-600">مساحات آمنة للطلاب للتفاعل والنقاش دون الكشف عن هوياتهم لبعضهم البعض.</p>
-                </div>
-                <div class="feature-card">
-                    <h4 class="font-bold text-lg mb-2">محتوى مرئي قصير (Reels)</h4>
-                    <p class="text-gray-600">قسم مخصص للمحتوى السريع والجذاب لزيادة التفاعل والوصول.</p>
-                </div>
-                <div class="feature-card">
-                    <h4 class="font-bold text-lg mb-2">مدونة ومقالات</h4>
-                    <p class="text-gray-600">قسم للمقالات التعليمية والتسويق بالمحتوى لبناء المصداقية وجذب الجمهور.</p>
-                </div>
-                 <div class="feature-card">
-                    <h4 class="font-bold text-lg mb-2">تقييمات وتعليقات</h4>
-                    <p class="text-gray-600">نظام تقييم للدورات مع إمكانية فتح أو إغلاق قسم التعليقات لكل دورة.</p>
-                </div>
+        <!-- Date Selector -->
+        <div class="card p-4 mb-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <h2 class="text-lg font-semibold text-gray-700">اختر الفترة لعرض التقرير:</h2>
+            <div class="flex gap-4">
+                <select id="month-selector" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                    <!-- Months will be populated by JS -->
+                </select>
+                <select id="year-selector" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                    <!-- Years will be populated by JS -->
+                </select>
             </div>
         </div>
-    </div>
 
-    <!-- Slide 3: Certification & Assessment -->
-    <div id="slide-3" class="slide">
-        <div class="slide-content">
-            <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-12">التقييم والشهادات</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="feature-card">
-                    <h4 class="font-bold text-lg mb-2">إصدار شهادات تلقائي</h4>
-                    <p class="text-gray-600">توليد شهادات إتمام مخصصة تلقائياً بعد استيفاء الشروط (إكمال، اختبار، واجب).</p>
-                </div>
-                <div class="feature-card">
-                    <h4 class="font-bold text-lg mb-2">نظام اختبارات متقدم</h4>
-                    <p class="text-gray-600">إنشاء اختبارات متنوعة لتحديد مستوى الطلاب كشرط للحصول على الشهادة.</p>
-                </div>
-                <div class="feature-card">
-                    <h4 class="font-bold text-lg mb-2">نظام رفع واجبات (Assignments)</h4>
-                    <p class="text-gray-600">إمكانية رفع الطلاب لواجباتهم ومشاريعهم ليتم تقييمها من قبل الإدارة.</p>
-                </div>
-                <div class="feature-card">
-                    <h4 class="font-bold text-lg mb-2">موافقة إدارية على الشهادة</h4>
-                    <p class="text-gray-600">تحكم كامل للمدير في الموافقة على إصدار الشهادة بعد مراجعة الشروط.</p>
-                </div>
-                <div class="feature-card">
-                    <h4 class="font-bold text-lg mb-2">إشعارات إدارية</h4>
-                    <p class="text-gray-600">استلام إشعار فوري عندما يكمل طالب متطلبات شهادته، بانتظار الموافقة.</p>
-                </div>
-                 <div class="feature-card">
-                    <h4 class="font-bold text-lg mb-2">سجل الموافقات (Audit Trail)</h4>
-                    <p class="text-gray-600">تسجيل هوية المدير الذي قام بالموافقة على كل شهادة لضمان الحوكمة.</p>
-                </div>
-            </div>
+        <!-- Report Content -->
+        <div id="report-content">
+            <!-- Content will be dynamically inserted here -->
         </div>
-    </div>
+        
+        <!-- Placeholder for when no data is available -->
+        <div id="no-data-placeholder" class="card p-8 text-center text-gray-500 text-xl font-semibold hidden">
+            <i data-lucide="info" class="w-16 h-16 mx-auto mb-4 text-blue-400"></i>
+            <p>البيانات غير متاحة حاليًا لهذا الشهر.</p>
+        </div>
 
-    <!-- Slide 4: Business & Marketing -->
-    <div id="slide-4" class="slide">
-        <div class="slide-content">
-            <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-12">الأعمال والتسويق</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                 <div class="feature-card">
-                    <h4 class="font-bold text-lg mb-2">بوابات دفع سعودية</h4>
-                    <p class="text-gray-600">دعم كامل لـ "مدى" وأنظمة التقسيط الشهيرة مثل "تابي" و "تمارا".</p>
-                </div>
-                <div class="feature-card">
-                    <h4 class="font-bold text-lg mb-2">نظام عضويات متكامل</h4>
-                    <p class="text-gray-600">إنشاء خطط عضوية (شهرية/سنوية) بأسعار ومميزات مختلفة لكل فئة.</p>
-                </div>
-                <div class="feature-card">
-                    <h4 class="font-bold text-lg mb-2">حجز اجتماعات (تقويم)</h4>
-                    <p class="text-gray-600">نظام تقويم مدمج يسمح للعملاء بحجز مواعيد متاحة للاجتماعات والاستشارات.</p>
-                </div>
-                <div class="feature-card">
-                    <h4 class="font-bold text-lg mb-2">قسم وظائف شاغرة</h4>
-                    <p class="text-gray-600">صفحة مخصصة لعرض الوظائف المتاحة في شركتك واستقطاب المواهب.</p>
-                </div>
-                <div class="feature-card">
-                    <h4 class="font-bold text-lg mb-2">شات تفاعلي و Chatbot</h4>
-                    <p class="text-gray-600">نظام محادثة فورية مع إمكانية إعداد ردود آلية للأسئلة الشائعة.</p>
-                </div>
-            </div>
-        </div>
     </div>
-    
-    <!-- NEW Slide 5: Technology & Apps -->
-    <div id="slide-5" class="slide">
-        <div class="slide-content">
-            <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-12">التقنية والتطبيقات</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 justify-center">
-                 <div class="feature-card">
-                    <h4 class="font-bold text-lg mb-2">تطبيقات جوال متكاملة (iOS & Android)</h4>
-                    <p class="text-gray-600">تحويل المنصة إلى تطبيق احترافي يعمل على جميع الأجهزة، لتقديم تجربة تعلم سلسة ومتاحة في أي وقت ومن أي مكان.</p>
-                </div>
-                <div class="feature-card">
-                    <h4 class="font-bold text-lg mb-2">نظام إشعارات سلس</h4>
-                    <p class="text-gray-600">إرسال إشعارات فورية (Push Notifications) للطلاب عبر التطبيق لإعلامهم بالمحاضرات الجديدة، التنبيهات المهمة، والعروض الحصرية.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Slide 6: Admin & Control -->
-    <div id="slide-6" class="slide">
-        <div class="slide-content">
-            <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-12">الإدارة والتحكم (لوحة تحكم ووردبريس)</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="feature-card border-blue-600 ring-2 ring-blue-200">
-                    <h4 class="font-bold text-lg mb-2 text-blue-700">تسليم الكود المصدري (Source Code)</h4>
-                    <p class="text-gray-600">ملكية كاملة للكود المصدري للمنصة لضمان الاستقلالية والتطوير المستقبلي.</p>
-                </div>
-                <div class="feature-card">
-                    <h4 class="font-bold text-lg mb-2">لوحة تحكم عصرية</h4>
-                    <p class="text-gray-600">داش بورد سهلة الاستخدام لمتابعة كل شيء، من رفع الدورات إلى مشاهدة التقارير.</p>
-                </div>
-                <div class="feature-card">
-                    <h4 class="font-bold text-lg mb-2">إدارة الشهادات</h4>
-                    <p class="text-gray-600">قسم خاص لمراجعة الشهادات والموافقة عليها أو رفضها بنقرة زر.</p>
-                </div>
-                <div class="feature-card">
-                    <h4 class="font-bold text-lg mb-2">تقارير الحضور والغياب</h4>
-                    <p class="text-gray-600">معرفة من حضر المحاضرات المباشرة ومن شاهد المسجلة بسهولة.</p>
-                </div>
-                <div class="feature-card">
-                    <h4 class="font-bold text-lg mb-2">إدارة سهلة للمحتوى</h4>
-                    <p class="text-gray-600">أدوات بسيطة لرفع الدورات، المقالات، والوظائف دون الحاجة لخبرة تقنية.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- NEW Slide 7: Conclusion -->
-    <div id="slide-7" class="slide bg-gray-800 text-white">
-        <div class="slide-content text-center">
-            <h1 class="text-4xl md:text-5xl font-extrabold">منصة متكاملة وجاهزة للنجاح</h1>
-            <p class="mt-4 text-xl md:text-2xl text-gray-300">حل شامل يجمع بين القوة التقنية، سهولة الإدارة، وتجربة المستخدم المتميزة.</p>
-            <p class="mt-8 text-lg font-bold text-blue-400">نهاية العرض</p>
-        </div>
-    </div>
-
-
-    <!-- Navigation -->
-    <button id="prevBtn" class="nav-btn" style="display: none;">السابق</button>
-    <button id="nextBtn" class="nav-btn">التالي</button>
-    <div id="slideCounter" class="slide-counter"></div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const slides = document.querySelectorAll('.slide');
-            const prevBtn = document.getElementById('prevBtn');
-            const nextBtn = document.getElementById('nextBtn');
-            const slideCounterElem = document.getElementById('slideCounter');
-            let currentSlide = 0;
-            const totalSlides = slides.length;
-
-            function updateSlideCounter() {
-                if (currentSlide === totalSlides - 1) {
-                     slideCounterElem.textContent = 'النهاية';
-                } else {
-                     slideCounterElem.textContent = `${currentSlide + 1} / ${totalSlides}`;
+        // Data Store
+        const reportData = {
+            "2025": {
+                "7": { // July - Data moved here
+                    general: {
+                        clientCount: 258,
+                        avgQuality: "70%",
+                        incomeNoInstallments: "32,905",
+                        incomeWithInstallments: "97,320",
+                        campaignExpenses: "20,000"
+                    },
+                    employees: {
+                        mahmoud: { 
+                            name: "محمود", 
+                            role: "مصمم جرافيك",
+                            kpis: { "عدد التاسكات": 0, "عدد التعديلات": 0 },
+                            evaluation: {
+                                positive: ["عدد الديزاينات المكتملة", "التسليم في الموعد"],
+                                negative: ["عدد التعديلات", "التأخير في التسليم"]
+                            }
+                        },
+                        sayed: { 
+                            name: "سيد", 
+                            role: "مونتير فيديو",
+                            kpis: { "عدد الفيديوهات": 0, "عدد التعديلات": 0 },
+                             evaluation: {
+                                positive: ["عدد الفيديوهات المكتملة", "جودة المونتاج"],
+                                negative: ["عدد التعديلات", "التأخير في التسليم"]
+                            }
+                        },
+                        social: { 
+                            name: "مصطفى", 
+                            role: "أخصائي سوشيال ميديا",
+                            kpis: { "عدد المنشورات": 0, "معدل التفاعل": "0%" },
+                             evaluation: {
+                                positive: ["نمو المتابعين", "جودة المحتوى"],
+                                negative: ["انخفاض التفاعل", "الأخطاء في المنشورات"]
+                            }
+                        },
+                        shady: { 
+                            name: "شادي", 
+                            role: "مبيعات",
+                            kpis: { "عدد العملاء الجدد": 0, "إجمالي المبيعات": 0 },
+                             evaluation: {
+                                positive: ["تحقيق التارجت", "رضا العملاء"],
+                                negative: ["عدد الشكاوى", "عدم تحقيق التارجت"]
+                            }
+                        }
+                    }
                 }
+                // August 2025 is intentionally left empty
             }
+        };
 
-            function showSlide(index) {
-                // Hide all slides
-                slides.forEach(slide => {
-                    slide.classList.remove('active');
-                });
+        const monthSelector = document.getElementById('month-selector');
+        const yearSelector = document.getElementById('year-selector');
+        const reportContent = document.getElementById('report-content');
+        const noDataPlaceholder = document.getElementById('no-data-placeholder');
 
-                // Show the target slide
-                if (slides[index]) {
-                    slides[index].classList.add('active');
-                }
-                
-                // Update button visibility
-                prevBtn.style.display = index === 0 ? 'none' : 'block';
-                nextBtn.style.display = index === totalSlides - 1 ? 'none' : 'block';
-                
-                updateSlideCounter();
-            }
-
-            nextBtn.addEventListener('click', () => {
-                if (currentSlide < totalSlides - 1) {
-                    currentSlide++;
-                    showSlide(currentSlide);
-                }
+        // Populate Selectors
+        function populateSelectors() {
+            const months = [
+                { value: 1, name: "يناير" }, { value: 2, name: "فبراير" }, { value: 3, name: "مارس" },
+                { value: 4, name: "أبريل" }, { value: 5, name: "مايو" }, { value: 6, name: "يونيو" },
+                { value: 7, name: "يوليو" }, { value: 8, name: "أغسطس" }, { value: 9, name: "سبتمبر" },
+                { value: 10, name: "أكتوبر" }, { value: 11, name: "نوفمبر" }, { value: 12, name: "ديسمبر" }
+            ];
+            
+            months.forEach(month => {
+                const option = document.createElement('option');
+                option.value = month.value;
+                option.textContent = month.name;
+                monthSelector.appendChild(option);
             });
 
-            prevBtn.addEventListener('click', () => {
-                if (currentSlide > 0) {
-                    currentSlide--;
-                    showSlide(currentSlide);
-                }
-            });
+            const startYear = 2025;
+            for (let i = startYear; i <= startYear + 5; i++) {
+                const option = document.createElement('option');
+                option.value = i;
+                option.textContent = i;
+                yearSelector.appendChild(option);
+            }
 
-            // Initialize the first slide
-            showSlide(currentSlide);
+            // Set default to July 2025
+            monthSelector.value = 7;
+            yearSelector.value = 2025;
+        }
+
+        // Render Report
+        function renderReport(year, month) {
+            const data = reportData[year] ? reportData[year][month] : null;
+
+            if (data) {
+                reportContent.classList.remove('hidden');
+                noDataPlaceholder.classList.add('hidden');
+
+                reportContent.innerHTML = `
+                    <!-- General Stats -->
+                    <div class="mb-8">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-4 text-center">التقرير العام لشهر ${monthSelector.options[monthSelector.selectedIndex].text} ${year}</h2>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+                            <div class="stat-card card p-6 flex items-center gap-4">
+                                <i data-lucide="users" class="w-12 h-12 text-blue-500"></i>
+                                <div><p class="text-gray-500 text-sm">عدد العملاء</p><p class="text-2xl font-bold text-gray-800">${data.general.clientCount}</p></div>
+                            </div>
+                            <div class="stat-card card p-6 flex items-center gap-4">
+                                <i data-lucide="star" class="w-12 h-12 text-yellow-500"></i>
+                                <div><p class="text-gray-500 text-sm">متوسط الجودة</p><p class="text-2xl font-bold text-gray-800">${data.general.avgQuality}</p></div>
+                            </div>
+                            <div class="stat-card card p-6 flex items-center gap-4">
+                                <i data-lucide="landmark" class="w-12 h-12 text-green-500"></i>
+                                <div><p class="text-gray-500 text-sm">الدخل (بلا أقساط)</p><p class="text-2xl font-bold text-gray-800">${data.general.incomeNoInstallments}</p></div>
+                            </div>
+                            <div class="stat-card card p-6 flex items-center gap-4">
+                                <i data-lucide="trending-up" class="w-12 h-12 text-purple-500"></i>
+                                <div><p class="text-gray-500 text-sm">الدخل (بأقساط)</p><p class="text-2xl font-bold text-gray-800">${data.general.incomeWithInstallments}</p></div>
+                            </div>
+                             <div class="stat-card card p-6 flex items-center gap-4">
+                                <i data-lucide="receipt" class="w-12 h-12 text-red-500"></i>
+                                <div><p class="text-gray-500 text-sm">مصروفات الحملات</p><p class="text-2xl font-bold text-gray-800">${data.general.campaignExpenses} جنيه</p></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Employee Reports -->
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">تقارير الموظفين</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            ${Object.values(data.employees).map(emp => `
+                                <div class="card p-6 flex flex-col space-y-6">
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <h3 class="text-xl font-bold text-blue-800">${emp.name}</h3>
+                                            <p class="text-gray-600">${emp.role}</p>
+                                        </div>
+                                        <div class="bg-blue-100 p-3 rounded-full"><i data-lucide="user-circle-2" class="w-8 h-8 text-blue-600"></i></div>
+                                    </div>
+                                    
+                                    <div class="border-t border-gray-200 pt-4">
+                                        <h4 class="font-semibold text-gray-700 mb-2">مؤشرات الأداء الرئيسية (KPIs)</h4>
+                                        <div class="text-sm">
+                                            ${Object.entries(emp.kpis).map(([key, value]) => `
+                                                <div class="kpi-item">
+                                                    <span class="text-gray-600">${key}</span>
+                                                    <span class="font-bold text-blue-700 bg-blue-100 px-2 py-1 rounded-md">${value}</span>
+                                                </div>
+                                            `).join('')}
+                                        </div>
+                                    </div>
+
+                                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                                        <div>
+                                            <h4 class="font-semibold text-gray-700 mb-2 flex items-center gap-2"><i data-lucide="thumbs-up" class="w-5 h-5 text-green-500"></i>نقاط إيجابية</h4>
+                                            <ul class="space-y-1 list-inside text-sm">
+                                                ${emp.evaluation.positive.map(point => `<li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-green-500 mt-1 shrink-0"></i><span class="text-gray-600">${point}</span></li>`).join('')}
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold text-gray-700 mb-2 flex items-center gap-2"><i data-lucide="thumbs-down" class="w-5 h-5 text-red-500"></i>نقاط سلبية</h4>
+                                            <ul class="space-y-1 list-inside text-sm">
+                                                 ${emp.evaluation.negative.map(point => `<li class="flex items-start gap-2"><i data-lucide="x-circle" class="w-4 h-4 text-red-500 mt-1 shrink-0"></i><span class="text-gray-600">${point}</span></li>`).join('')}
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="space-y-4 border-t border-gray-200 pt-4">
+                                        <div>
+                                            <label class="block text-sm font-semibold text-gray-700 mb-1">التوصيات</label>
+                                            <div class="note-box">لا توجد توصيات حاليًا.</div>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-semibold text-gray-700 mb-1">الملاحظات</label>
+                                            <div class="note-box">لا توجد ملاحظات حاليًا.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            } else {
+                reportContent.classList.add('hidden');
+                noDataPlaceholder.classList.remove('hidden');
+            }
+            lucide.createIcons(); // Re-render icons
+        }
+
+        // Event Listeners
+        monthSelector.addEventListener('change', () => renderReport(yearSelector.value, monthSelector.value));
+        yearSelector.addEventListener('change', () => renderReport(yearSelector.value, monthSelector.value));
+
+        // Initial Load
+        document.addEventListener('DOMContentLoaded', () => {
+            populateSelectors();
+            renderReport(yearSelector.value, monthSelector.value);
+            lucide.createIcons();
         });
     </script>
 </body>
