@@ -77,7 +77,7 @@
                         </select>
                 </div>
             </div>
-            <a href="https://ieatd-academy2.github.io/data/" class="bg-blue-600 text-white font-semibold px-4 py-2.5 rounded-lg hover:bg-blue-700 transition flex items-center gap-2">
+            <a href="clients.html" class="bg-blue-600 text-white font-semibold px-4 py-2.5 rounded-lg hover:bg-blue-700 transition flex items-center gap-2">
                  <i data-lucide="table" class="w-5 h-5"></i>
                 <span>بيانات العملاء</span>
             </a>
@@ -98,58 +98,7 @@
         // Data Store
         const reportData = {
             "2025": {
-                "7": { // July
-                    general: {
-                        clientCount: 258,
-                        avgQuality: "70%",
-                        incomeNoInstallments: "32,905",
-                        incomeWithInstallments: "97,320",
-                        campaignExpenses: "20,000"
-                    },
-                    employees: {
-                        mahmoud: { 
-                            name: "محمود", 
-                            role: "مصمم جرافيك",
-                            kpis: { "عدد التاسكات": 85, "عدد التعديلات": 12 },
-                            dailyPerformance: [5, 6, 7, 5, 8, 9, 6, 7, 8, 10, 9, 7, 6, 8, 9, 8, 7, 9, 10, 8, 7, 6, 9, 10, 8, 7, 6, 9, 8, 7, 9],
-                            evaluation: {
-                                positive: ["عدد الديزاينات المكتملة", "التسليم في الموعد"],
-                                negative: ["عدد التعديلات", "التأخير في التسليم"]
-                            }
-                        },
-                        sayed: { 
-                            name: "سيد", 
-                            role: "مونتير فيديو",
-                            kpis: { "عدد الفيديوهات": 22, "عدد التعديلات": 5 },
-                            dailyPerformance: [8, 9, 7, 8, 9, 10, 9, 8, 7, 9, 10, 8, 9, 7, 8, 9, 10, 9, 8, 7, 9, 10, 8, 9, 7, 8, 9, 10, 9, 8, 7],
-                            evaluation: {
-                                positive: ["عدد الفيديوهات المكتملة", "جودة المونتاج"],
-                                negative: ["عدد التعديلات", "التأخير في التسليم"]
-                            }
-                        },
-                        social: { 
-                            name: "مصطفى", 
-                            role: "أخصائي سوشيال ميديا",
-                            kpis: { "عدد المنشورات": 120, "معدل التفاعل": "2.5%" },
-                             dailyPerformance: [6, 7, 8, 7, 6, 9, 8, 7, 9, 8, 7, 6, 8, 9, 7, 6, 8, 7, 9, 8, 7, 9, 8, 7, 6, 9, 8, 7, 9, 8, 7],
-                            evaluation: {
-                                positive: ["نمو المتابعين", "جودة المحتوى"],
-                                negative: ["انخفاض التفاعل", "الأخطاء في المنشورات"]
-                            }
-                        },
-                        shady: { 
-                            name: "شادي", 
-                            role: "مبيعات",
-                            kpis: { "عدد العملاء الجدد": 15, "إجمالي المبيعات": 45000 },
-                            dailyPerformance: [9, 8, 10, 9, 8, 7, 9, 10, 8, 9, 7, 8, 9, 10, 9, 8, 7, 9, 10, 8, 9, 7, 8, 9, 10, 9, 8, 7, 9, 10, 8],
-                            evaluation: {
-                                positive: ["تحقيق التارجت", "رضا العملاء"],
-                                negative: ["عدد الشكاوى", "عدم تحقيق التارجت"]
-                            }
-                        }
-                    }
-                },
-                "8": { // August
+                "7": { // July - Contains General Report + Zeroed employee stats
                     general: {
                         clientCount: 275,
                         avgQuality: "75%",
@@ -161,42 +110,124 @@
                         mahmoud: { 
                             name: "محمود", 
                             role: "مصمم جرافيك",
-                            kpis: { "عدد التاسكات": 92, "عدد التعديلات": 10 },
-                            dailyPerformance: [6, 7, 8, 6, 9, 8, 7, 8, 9, 10, 8, 7, 7, 9, 10, 9, 8, 9, 10, 9, 8, 7, 10, 9, 8, 7, 8, 10, 9, 8, 10],
+                            kpis: { "عدد التاسكات": 0, "عدد التعديلات": 0 },
+                            dailyPerformance: new Array(31).fill(0),
                             evaluation: {
-                                positive: ["زيادة في عدد التصاميم", "الالتزام بالمواعيد النهائية"],
-                                negative: ["ضغط العمل أثر على الابتكار", "بعض التعديلات كانت جوهرية"]
-                            }
+                                positive: ["-"],
+                                negative: ["-"]
+                            },
+                            recommendations: [],
+                            notes: []
                         },
                         sayed: { 
                             name: "سيد", 
                             role: "مونتير فيديو",
-                            kpis: { "عدد الفيديوهات": 25, "عدد التعديلات": 4 },
-                            dailyPerformance: [9, 9, 8, 9, 10, 9, 9, 8, 8, 9, 10, 9, 9, 8, 9, 10, 9, 9, 8, 8, 9, 10, 9, 9, 8, 9, 10, 9, 9, 8, 8],
+                            kpis: { "عدد الفيديوهات": 0, "عدد التعديلات": 0 },
+                            dailyPerformance: new Array(31).fill(0),
                             evaluation: {
-                                positive: ["جودة عالية في إخراج الفيديوهات", "سرعة في الإنجاز"],
-                                negative: ["الحاجة لتطوير استخدام بعض البرامج", "التأخر في بعض المهام الصغيرة"]
-                            }
+                                positive: ["-"],
+                                negative: ["-"]
+                            },
+                            recommendations: [],
+                            notes: []
                         },
                         social: { 
                             name: "مصطفى", 
                             role: "أخصائي سوشيال ميديا",
-                            kpis: { "عدد المنشورات": 130, "معدل التفاعل": "3.1%" },
-                            dailyPerformance: [7, 8, 9, 8, 7, 10, 9, 8, 9, 8, 7, 8, 9, 10, 8, 7, 9, 8, 10, 9, 8, 9, 8, 7, 8, 10, 9, 8, 9, 8, 7],
+                            kpis: { "عدد المنشورات": 0, "معدل التفاعل": "0%" },
+                             dailyPerformance: new Array(31).fill(0),
                             evaluation: {
-                                positive: ["زيادة ملحوظة في التفاعل", "أفكار محتوى مبتكرة"],
-                                negative: ["الحاجة لتحسين الرد على التعليقات", "بعض الأخطاء الإملائية"]
-                            }
+                                positive: ["-"],
+                                negative: ["-"]
+                            },
+                            recommendations: [],
+                            notes: []
                         },
-                        shady: { 
-                            name: "شادي", 
+                        sales: { 
+                            name: "لم يتم التعيين بعد", 
                             role: "مبيعات",
-                            kpis: { "عدد العملاء الجدد": 18, "إجمالي المبيعات": 52000 },
-                            dailyPerformance: [10, 9, 10, 9, 8, 9, 10, 10, 8, 9, 8, 9, 10, 10, 9, 8, 9, 10, 10, 8, 9, 8, 9, 10, 10, 9, 8, 9, 10, 10, 9],
+                            kpis: { "عدد العملاء الجدد": 0, "إجمالي المبيعات": 0 },
+                            dailyPerformance: new Array(31).fill(0),
                             evaluation: {
-                                positive: ["تجاوز الهدف الشهري للمبيعات", "علاقات ممتازة مع العملاء"],
-                                negative: ["صعوبة في متابعة العملاء المحتملين", "الحاجة لتدريب على منتجات جديدة"]
-                            }
+                                positive: ["-"],
+                                negative: ["-"]
+                            },
+                            recommendations: [],
+                            notes: []
+                        }
+                    }
+                },
+                "8": { // August - Detailed data from the user
+                    general: { // General stats are zeroed as requested
+                        clientCount: 0,
+                        avgQuality: "0%",
+                        incomeNoInstallments: "0",
+                        incomeWithInstallments: "0",
+                        campaignExpenses: "0"
+                    },
+                    employees: {
+                        mahmoud: { 
+                            name: "محمود", 
+                            role: "مصمم جرافيك",
+                            kpis: { "عدد التاسكات": 20, "عدد التعديلات": 4 },
+                            dailyPerformance: [9, 10, 8, 9, 10, 9, 8, 9, 10, 9, 6, 7, 5, 6, 7, 6, 5, 7, 6, 7, 6, 9, 8, 10, 9, 8, 9, 10, 8, 10, 9],
+                            evaluation: {
+                                positive: [
+                                    "تحسن كبير جدا وملحوظ في معدل تسليم التاسكات بالإضافة للكواليتي.",
+                                    "مرن في التعامل داخل الفريق بنسبة 60 % وملتزم بمواعيد العمل والقواعد المقررة بنسبة 97 %"
+                                ],
+                                negative: [
+                                    "عدم المعرفة الكاملة بالتعامل في مواقع التصميم غير الفوتوشوب وبرامج ادوبي بشكل عام",
+                                    "عدم المرونة في التاسكات المعقدة",
+                                    "عدم القدرة على حل المشكلات في أغلب الأحيان (نعمل على تحسين ذلك)"
+                                ]
+                            },
+                            recommendations: ["يمكنكم بناءًا على هذا التقرير إضافة حافز (بقدر 1000 جنيه)، ونوصي بالتحدث مع الموظف بأنكم على علم بأداءه هذا الشهر ثم التأكيد على النقاط الإيجابية ونحن نعمل بشكل كامل على حل النقاط السلبية، وتم فك أجزاء منها."],
+                            notes: ["أداء إجمالي جيد جدا"]
+                        },
+                        mostafa: { 
+                            name: "مصطفى", 
+                            role: "أخصائي سوشيال ميديا",
+                            kpis: { "مجموع البوستات": 60, "عدد التعديلات": 12 },
+                            dailyPerformance: [7, 8, 6, 9, 7, 8, 8, 9, 6, 7, 8, 9, 7, 8, 9, 7, 6, 9, 8, 9, 7, 8, 8, 9, 7, 9, 8, 7, 9, 8, 8],
+                            evaluation: {
+                                positive: [
+                                    "تطور ملحوظ في طريقة الكتابة",
+                                    "لديه طموحات كبيرة والتزام جزئي بقواعد العمل"
+                                ],
+                                negative: [
+                                    "غياب يومين (يوم بإذن وعذر قهري – يوم بلا إذن)",
+                                    "يعتمد على الذكاء الاصطناعي بشكل أساسي أحياناً",
+                                    "تأخر في الرد على التعليقات"
+                                ]
+                            },
+                            recommendations: [
+                                "وضع خطة للرد السريع على تعليقات المتابعين",
+                                "تحليل المنشورات ذات التفاعل المنخفض لتحديد أسباب ذلك",
+                                "يمكنكم إضافة حافز من 500 جنيه لألف جنيه فقط"
+                            ],
+                            notes: ["أداء مقبول باعتباره أول شهر، ويظهر تحسنًا فترة بعد فترة بعد التعديلات."]
+                        },
+                        sayed: { 
+                            name: "سيد", 
+                            role: "مونتير فيديو",
+                            kpis: { "عدد الفيديوهات": "4 من 8", "عدد التعديلات": 2 },
+                            dailyPerformance: [8, 9, 7, 8, 9, 8, 7, 9, 6, 8, 9, 7, 8, 9, 8, 8, 9, 7, 8, 9, 7, 9, 8, 7, 8, 9, 8, 9, 7, 8, 9],
+                            evaluation: {
+                                positive: [
+                                    "تطور في صناعة الفيديوهات",
+                                    "تطور في فهم الاسكربت والعمل وفقا له"
+                                ],
+                                negative: [
+                                    "تأخير في مواعيد التسليمات",
+                                    "عدم الالتزام بموعده في اليوم المحدد له من 10ص لـ 6م"
+                                ]
+                            },
+                            recommendations: [
+                                "استخدام الذكاء الاصطناعي بشكل أكبر للمساعدة في تنفيذ الاسكربت في أقل وقت ممكن",
+                                "العمل على تنفيذ الاسكربت بمدة أقل"
+                            ],
+                            notes: ["أداء إجمالي مقبول"]
                         }
                     }
                 }
@@ -380,11 +411,23 @@
                                     <div class="space-y-4 border-t border-gray-200 pt-4">
                                         <div>
                                             <label class="block text-sm font-semibold text-gray-700 mb-1">التوصيات</label>
-                                            <div class="note-box">لا توجد توصيات حاليًا.</div>
+                                            <div class="note-box">
+                                                 ${emp.recommendations && emp.recommendations.length > 0 ? `
+                                                    <ul class="list-disc pr-4 space-y-1 text-sm">
+                                                        ${emp.recommendations.map(point => `<li>${point}</li>`).join('')}
+                                                    </ul>
+                                                ` : 'لا توجد توصيات حاليًا.'}
+                                            </div>
                                         </div>
                                         <div>
                                             <label class="block text-sm font-semibold text-gray-700 mb-1">الملاحظات</label>
-                                            <div class="note-box">لا توجد ملاحظات حاليًا.</div>
+                                            <div class="note-box">
+                                                 ${emp.notes && emp.notes.length > 0 ? `
+                                                    <ul class="list-disc pr-4 space-y-1 text-sm">
+                                                        ${emp.notes.map(point => `<li>${point}</li>`).join('')}
+                                                    </ul>
+                                                ` : 'لا توجد ملاحظات حاليًا.'}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -422,5 +465,3 @@
     </script>
 </body>
 </html>
-
-
