@@ -72,9 +72,9 @@
                 <h2 class="text-lg font-semibold text-gray-700">اختر الفترة لعرض التقرير:</h2>
                 <div class="flex gap-4">
                     <select id="month-selector" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                        </select>
+                    </select>
                     <select id="year-selector" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                        </select>
+                    </select>
                 </div>
             </div>
             <a href="https://ieatd-academy2.github.io/data/" class="bg-blue-600 text-white font-semibold px-4 py-2.5 rounded-lg hover:bg-blue-700 transition flex items-center gap-2">
@@ -230,6 +230,85 @@
                             notes: ["أداء إجمالي مقبول"]
                         }
                     }
+                },
+                "9": { // September - DAILY PERFORMANCE DATA UPDATED
+                    general: {
+                        clientCount: 300,
+                        avgQuality: "65%",
+                        incomeNoInstallments: "-",
+                        incomeWithInstallments: "40,000",
+                        campaignExpenses: "13,000"
+                    },
+                    employees: {
+                        mahmoud: {
+                            name: "محمود",
+                            role: "مصمم جرافيك",
+                            kpis: { "عدد التاسكات": 20, "معدل التعديلات": "1 لكل 5 تاسكات" },
+                            dailyPerformance: [9, 10, 8, 9, 10, 9, 8, 9, 10, 9, 10, 9, 8, 10, 9, 8, 9, 10, 10, 9, 8, 9, 10, 9, 8, 10, 9, 9, 10, 8],
+                            evaluation: {
+                                positive: [
+                                    "مرونة في تأدية التاسكات",
+                                    "تحسن كبير في معدل تسليم التاسكات بالإضافة للكواليتي",
+                                    "القيام بتاسكات حتى إن لم تطلب منه",
+                                    "التزام كبير في مواعيد العمل"
+                                ],
+                                negative: ["-"]
+                            },
+                            recommendations: ["يوصي بوضع حافز متوسط"],
+                            notes: ["الأداء العام: جيد جدا"]
+                        },
+                        mostafa: {
+                            name: "مصطفى",
+                            role: "أخصائي سوشيال ميديا",
+                            kpis: { 
+                                "بوستات فيسبوك/انستقرام": 42,
+                                "فيديوهات تيك توك/يوتيوب": 6,
+                                "مقالات لينكدإن": 2,
+                                "معدل التعديلات": "1 لكل 2 بوست"
+                            },
+                            dailyPerformance: [8, 9, 7, 8, 8, 9, 7, 8, 9, 7, 4, 5, 3, 4, 5, 4, 3, 5, 4, 5, 5, 6, 5, 6, 7, 6, 7, 6, 7, 7],
+                            evaluation: {
+                                positive: [
+                                    "تطور في الأداء وقابلية التعلم"
+                                ],
+                                negative: [
+                                    "عدم الاحترافية الكافية في إنشاء الديزاين بورد",
+                                    "عدم الجلوس على المكتب لفترة كافية تسمح له بإنجاز المهام في مواعيدها",
+                                    "مهام كثيرة تتأخر عن موعدها أو تنفذ بشكل غير مكتمل"
+                                ]
+                            },
+                            recommendations: [],
+                            notes: ["الأداء العام : مقبول"]
+                        },
+                        sayed: {
+                            name: "سيد",
+                            role: "مونتير فيديو",
+                            kpis: { "عدد الفيديوهات": "4 من 4" },
+                            dailyPerformance: [9, 8, 10, 9, 8, 9, 10, 8, 9, 8, 5, 4, 3, 5, 4, 3, 4, 5, 4, 5, 6, 7, 8, 9, 10, 9, 8, 10, 9, 10],
+                            evaluation: {
+                                positive: [
+                                    "الحضور في المواعيد المحددة",
+                                    "تنفيذ التاسك كما هو مكتوب في الوصف",
+                                    "تطور ملحوظ في صناعة الفيديوهات"
+                                ],
+                                negative: ["-"]
+                            },
+                            recommendations: [],
+                            notes: ["أداء عام ممتاز"]
+                        },
+                         sales: { 
+                            name: "لم يتم التعيين بعد", 
+                            role: "مبيعات",
+                            kpis: { "عدد العملاء الجدد": 0, "إجمالي المبيعات": 0 },
+                            dailyPerformance: new Array(30).fill(0),
+                            evaluation: {
+                                positive: ["-"],
+                                negative: ["-"]
+                            },
+                            recommendations: [],
+                            notes: []
+                        }
+                    }
                 }
             }
         };
@@ -265,15 +344,15 @@
                 yearSelector.appendChild(option);
             }
 
-            // Set default to August 2025
-            monthSelector.value = 8;
+            // Set default to September 2025 to show the new data
+            monthSelector.value = 9;
             yearSelector.value = 2025;
         }
 
         // Render Performance Chart
         function renderPerformanceChart(canvasId, data, month, year) {
              if (charts[canvasId]) {
-                 charts[canvasId].destroy();
+                  charts[canvasId].destroy();
              }
             const ctx = document.getElementById(canvasId).getContext('2d');
             const daysInMonth = new Date(year, month, 0).getDate();
@@ -337,7 +416,7 @@
                 reportContent.innerHTML = `
                     <div class="mb-8">
                         <h2 class="text-2xl font-bold text-gray-800 mb-4 text-center">التقرير العام لشهر ${monthSelector.options[monthSelector.selectedIndex].text} ${year}</h2>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                             <div class="stat-card card p-6 flex items-center gap-4">
                                 <i data-lucide="users" class="w-12 h-12 text-blue-500"></i>
                                 <div><p class="text-gray-500 text-sm">عدد العملاء</p><p class="text-2xl font-bold text-gray-800">${data.general.clientCount}</p></div>
@@ -348,11 +427,7 @@
                             </div>
                             <div class="stat-card card p-6 flex items-center gap-4">
                                 <i data-lucide="landmark" class="w-12 h-12 text-green-500"></i>
-                                <div><p class="text-gray-500 text-sm">الدخل (بلا أقساط)</p><p class="text-2xl font-bold text-gray-800">${data.general.incomeNoInstallments}</p></div>
-                            </div>
-                            <div class="stat-card card p-6 flex items-center gap-4">
-                                <i data-lucide="trending-up" class="w-12 h-12 text-purple-500"></i>
-                                <div><p class="text-gray-500 text-sm">الدخل (بأقساط)</p><p class="text-2xl font-bold text-gray-800">${data.general.incomeWithInstallments}</p></div>
+                                <div><p class="text-gray-500 text-sm">العائد</p><p class="text-2xl font-bold text-gray-800">${data.general.incomeWithInstallments} جنيه</p></div>
                             </div>
                              <div class="stat-card card p-6 flex items-center gap-4">
                                 <i data-lucide="receipt" class="w-12 h-12 text-red-500"></i>
@@ -465,4 +540,3 @@
     </script>
 </body>
 </html>
-
