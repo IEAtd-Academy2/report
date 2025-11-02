@@ -309,6 +309,69 @@
                             notes: []
                         }
                     }
+                },
+                "10": { // October - NEW DATA ADDED
+                    general: {
+                        clientCount: 178,
+                        avgQuality: "-", // Data not provided
+                        incomeNoInstallments: "-", // Data not provided
+                        incomeWithInstallments: "93,348",
+                        campaignExpenses: "20,000"
+                    },
+                    employees: {
+                        mahmoud: {
+                            name: "محمود",
+                            role: "مصمم جرافيك",
+                            kpis: { "عدد التاسكات": 25 },
+                            dailyPerformance: new Array(31).fill(9), // Interpreted as constant 'very good'
+                            evaluation: {
+                                positive: [
+                                    "المساعدة في عمل فيديو للمحاضرة المجانية لسمير",
+                                    "تجربة المعدات معنا والعمل عليها",
+                                    "العمل كوقت إضافي أثناء محاضرة ( سمير )"
+                                ],
+                                negative: ["-"] // Resolved
+                            },
+                            recommendations: ["يمكنكم بناءًا على هذا التقرير إضافة حافز ( بقدر 1500 جنيه )، ونوصي بالتحدث مع الموظف بأنكم على علم بأداءه هذا الشهر ثم التأكيد على النقاط الإيجابية"],
+                            notes: ["قد تم حل كل النقاط السلبية التي كانت في الشهرين السابقين", "أداء إجمالي جيد جدا"]
+                        },
+                        mostafa: { 
+                            name: "مصطفى",
+                            role: "أخصائي سوشيال ميديا",
+                            kpis: { "بوستات على ميتا": 27, "ريلز على تيك توك": 2 },
+                            dailyPerformance: new Array(31).fill(8), // No data provided, filled with 'good'
+                            evaluation: {
+                                positive: ["حل كل النقاط السلبية في الشهرين الماضيين"],
+                                negative: ["-"] // Resolved
+                            },
+                            recommendations: [], // None provided
+                            notes: ["أداء جيد"]
+                        },
+                        sayed: {
+                            name: "سيد",
+                            role: "مونتير فيديو",
+                            kpis: { "عدد الفيديوهات": "3 من 4", "عدد التعديلات": 0 },
+                            dailyPerformance: new Array(31).fill(8), // No data provided, filled with 'good'
+                            evaluation: {
+                                positive: ["عمل فيديو البرومو 3 دقايق في وقت قياسي"],
+                                negative: ["-"] // None provided
+                            },
+                            recommendations: [], // None provided
+                            notes: ["أداء إجمالي جيد"]
+                        },
+                        sales: { // Added for consistency
+                            name: "لم يتم التعيين بعد",
+                            role: "مبيعات",
+                            kpis: { "عدد العملاء الجدد": 0, "إجمالي المبيعات": 0 },
+                            dailyPerformance: new Array(31).fill(0),
+                            evaluation: {
+                                positive: ["-"],
+                                negative: ["-"]
+                            },
+                            recommendations: [],
+                            notes: []
+                        }
+                    }
                 }
             }
         };
@@ -344,8 +407,8 @@
                 yearSelector.appendChild(option);
             }
 
-            // Set default to September 2025 to show the new data
-            monthSelector.value = 9;
+            // Set default to October 2025 to show the new data
+            monthSelector.value = 10;
             yearSelector.value = 2025;
         }
 
@@ -487,7 +550,7 @@
                                         <div>
                                             <label class="block text-sm font-semibold text-gray-700 mb-1">التوصيات</label>
                                             <div class="note-box">
-                                                 ${emp.recommendations && emp.recommendations.length > 0 ? `
+                                                ${emp.recommendations && emp.recommendations.length > 0 ? `
                                                     <ul class="list-disc pr-4 space-y-1 text-sm">
                                                         ${emp.recommendations.map(point => `<li>${point}</li>`).join('')}
                                                     </ul>
@@ -497,7 +560,7 @@
                                         <div>
                                             <label class="block text-sm font-semibold text-gray-700 mb-1">الملاحظات</label>
                                             <div class="note-box">
-                                                 ${emp.notes && emp.notes.length > 0 ? `
+                                                ${emp.notes && emp.notes.length > 0 ? `
                                                     <ul class="list-disc pr-4 space-y-1 text-sm">
                                                         ${emp.notes.map(point => `<li>${point}</li>`).join('')}
                                                     </ul>
