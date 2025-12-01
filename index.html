@@ -380,6 +380,77 @@
                             notes: []
                         }
                     }
+                },
+                "11": { // November - NEW DATA ADDED FROM USER
+                    general: {
+                        clientCount: 300,
+                        avgQuality: "-", 
+                        incomeNoInstallments: "-", 
+                        incomeWithInstallments: "12,670.17",
+                        campaignExpenses: "20,000"
+                    },
+                    employees: {
+                        mahmoud: {
+                            name: "محمود",
+                            role: "مصمم جرافيك",
+                            kpis: { "عدد التاسكات": 20, "تطور في": "الرؤية البصرية" },
+                            dailyPerformance: new Array(30).fill(9), // Fallback to 'very good'
+                            evaluation: {
+                                positive: [
+                                    "تطور في الرؤية البصرية",
+                                    "يعمل خارج أوقات الدوام"
+                                ],
+                                negative: ["-"] 
+                            },
+                            recommendations: ["هو الأعلى أداء نوصي بصرف حافز أكثر من 1000 جنيه"], 
+                            notes: ["أداء إجمالي ممتاز"]
+                        },
+                        mostafa: {
+                            name: "مصطفى",
+                            role: "أخصائي سوشيال ميديا",
+                            kpis: { 
+                                "عدد البوستات على المنصات": 34, 
+                                "تاسكات يومية": "تويتر" 
+                            },
+                            dailyPerformance: new Array(30).fill(8), // Fallback to 'good'
+                            evaluation: {
+                                positive: [
+                                    "يمكن الاعتماد عليه ( جزئيًا ) في بعض التاسكات المهمة."
+                                ],
+                                negative: ["-"] 
+                            },
+                            recommendations: [], 
+                            notes: ["أداء إجمالي جيد"]
+                        },
+                        sayed: {
+                            name: "سيد",
+                            role: "مونتير فيديو",
+                            kpis: { "عدد الفيديوهات": "3 من 4", "ريلز بلا عدد": "بمساعدة في تجميع الماتريال" },
+                            dailyPerformance: new Array(30).fill(8), // Fallback to 'good'
+                            evaluation: {
+                                positive: [
+                                    "تم الاتفاق على عمل ريلز بلا عدد بشرط يتم مساعدته الآن في تجميع الماتريال ( المشاهد ) والاسكربت.",
+                                    "اظهر استعداده للمجيء للمقر لكل أيام التصوير التي كان سيحضر فيها سمير ( حتى لو 4 أيام في الأسبوع )"
+                                ],
+                                negative: ["-"] 
+                            },
+                            recommendations: [], 
+                            notes: ["أداء إجمالي جيد"]
+                        },
+                        sales: { 
+                            name: "لم يتم التعيين بعد",
+                            role: "مبيعات",
+                            kpis: { "عدد العملاء الجدد": 0, "إجمالي المبيعات": 0 },
+                            dailyPerformance: new Array(30).fill(0),
+                            evaluation: {
+                                positive: ["-"],
+                                negative: ["-"]
+                            },
+                            recommendations: [],
+                            notes: []
+                        }
+                    },
+                    otherNotes: ["مصاريف أخرى: 200 جنيه ( 3 ك سكر + جرس )"]
                 }
             }
         };
@@ -414,8 +485,8 @@
                 yearSelector.appendChild(option);
             }
 
-            // Set default to October 2025 to show the new data
-            monthSelector.value = 10;
+            // Set default to November 2025 to show the new data
+            monthSelector.value = 11;
             yearSelector.value = 2025;
         }
 
@@ -481,6 +552,14 @@
             if (data) {
                 reportContent.classList.remove('hidden');
                 noDataPlaceholder.classList.add('hidden');
+
+                // Check for general notes/other expenses
+                const generalNotesHtml = data.otherNotes ? `
+                    <div class="card p-6 col-span-1 sm:col-span-2 lg:col-span-4 mt-4">
+                         <h4 class="font-semibold text-gray-700 mb-2 flex items-center gap-2"><i data-lucide="info" class="w-5 h-5 text-gray-500"></i>ملاحظات عامة</h4>
+                         <div class="note-box">${data.otherNotes.map(note => `<p class="text-sm">${note}</p>`).join('')}</div>
+                    </div>
+                ` : '';
                 
                 reportContent.innerHTML = `
                     <div class="mb-8">
@@ -502,6 +581,7 @@
                                 <i data-lucide="receipt" class="w-12 h-12 text-red-500"></i>
                                 <div><p class="text-gray-500 text-sm">مصروفات الحملات</p><p class="text-2xl font-bold text-gray-800">${data.general.campaignExpenses} جنيه</p></div>
                             </div>
+                             ${generalNotesHtml}
                         </div>
                     </div>
 
